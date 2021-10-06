@@ -16,6 +16,8 @@
 \usepackage{array}%grubsze kolumny w tabeli
 \usepackage{bigstrut}
 \usepackage{caption}
+\usepackage{listings} %pisanie kodu w ładny sposób, begin{listings}[language=<język>]...end{listings} tak samo jak nazwa paczki
+
 %Ustawienie paczki hyperref
 \hypersetup{
      colorlinks,
@@ -23,6 +25,29 @@
      filecolor=black,
      linkcolor=black,
      urlcolor=black
+	%  language=vhdl
+}
+
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{AO}{rgb}{0,0.5,0}
+\definecolor{ZeroBlue}{rgb}{0,0.28,0.73}
+\definecolor{DarkRed}{rgb}{0.85,0.16,0.16}
+
+\lstset{
+breaklines=true,
+language=vhdl,
+numbers=left,
+tabsize=2,
+numberstyle=\tiny,
+backgroundcolor=\color{backcolour},
+breakatwhitespace=false,
+showspaces=false,                
+showstringspaces=false,
+showtabs=false,
+commentstyle=\color{gray},
+keywordstyle=\color{ZeroBlue},
+% keywordstyle={[2]\color{DarkRed}},
+% keywordstyle={[3]\color{ZeroBlue}},
 }
 \graphicspath{{pictures/}}
 \geometry{margin=0.7in}
@@ -91,17 +116,20 @@ Wykonać dowolną bramkę - funktor: 2 wejścia, 1 wyjście
 \subsection{Rozwiązanie}
 \subsubsection{Schemat układu}
 \begin{figure}[H]
-   \centering
-   \resizebox*{\textwidth}{!}{
-	  \includegraphics{schemat-zad1.png}
-   }
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie1/schematic_zad1.png}
+	}
 \end{figure}
-
-% screen z Xilinxa lub poszukać opcji eksportu grafiki
 \subsubsection{Kod VHDL}
-% tutaj użyjemy listing do wczytania pliku z kodem \lstinputlisting{}
+\lstinputlisting{zadanie1/vhdl_zad1.vhd}
 \subsubsection{Symulacja}
-% to samo co ze schematem lecz tytułowa symulacja
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie1/simulation_zad1.png}
+	}
+\end{figure}
 \section{Zadanie 2}
 \subsection{Polecenie}
 Implementacja funkcji logicznej \textbf{$G(w,x,y,z) = \prod(0, 2, 3, 4, 6, 7, 9, 11, 12, 13, 15)$}
@@ -109,7 +137,7 @@ Implementacja funkcji logicznej \textbf{$G(w,x,y,z) = \prod(0, 2, 3, 4, 6, 7, 9,
 \subsubsection{Wyprowadzenie}
 \begin{align}
 	  & G(w,x,y,z) = \prod(0, 2, 3, 4, 6, 7, 9, 11, 12, 13, 15)                                                       \\
-	= & \sum(1,5,8,14) = \sum(0001, 0101, 1000, 1010, 1110)                                                           \\
+	= & \sum(1,5,8,10,14) = \sum(0001, 0101, 1000, 1010, 1110)                                                        \\
 	= & \overline{wxy}z + \overline{w}x\overline{y}z + w\overline{xyz} + w\overline{x}y\overline{z} + wxy\overline{z} \\
 	= & \overline{wy}z(\overline{x} + x) + w\overline{z}(\overline{xy} + \overline{x}y + xy)                          \\
 	= & \overline{wy}z + w\overline{z}(\overline{x}(\overline{y} + y) + xy)                                           \\
@@ -123,7 +151,7 @@ Implementacja funkcji logicznej \textbf{$G(w,x,y,z) = \prod(0, 2, 3, 4, 6, 7, 9,
 	\centering
 	\resizebox{0.5\textwidth}{!}{
 		\begin{tabular}{?c?c|c|c|c?c?}\hlineB{2.5}
-			Kod dziesiętny & w & x & y & z & S \bigstrut \\\hlineB{2.5}
+			Kod dziesiętny & w & x & y & z & G \bigstrut \\\hlineB{2.5}
 			0              & 0 & 0 & 0 & 0 & 0 \bigstrut \\\hline
 			1              & 0 & 0 & 0 & 1 & 1 \bigstrut \\\hline
 			2              & 0 & 0 & 1 & 0 & 0 \bigstrut \\\hline
@@ -144,9 +172,9 @@ Implementacja funkcji logicznej \textbf{$G(w,x,y,z) = \prod(0, 2, 3, 4, 6, 7, 9,
 	}
 	\label{zad2-TableTrue}%
 \end{table}%
-\subsection{Siatka Karnaugh}
-\begin{center}
-
+\subsubsection{Siatka Karnaugh}
+\begin{figure}[H]
+\centering
 \resizebox{0.5\textwidth}{!}{
 	\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
 	\minterms{2,4,5,10,11} % na tych koordynatach umieść jedynki (1)
@@ -159,13 +187,25 @@ Implementacja funkcji logicznej \textbf{$G(w,x,y,z) = \prod(0, 2, 3, 4, 6, 7, 9,
 	\implicantedge{2}{2}{10}{10} %połącz komórki brzegowe
 	\end{karnaugh-map}
 }
-\end{center}
-Równanie po minimalizacji: $w\overline{x}\overline{z} + \overline{w}\overline{y}z + wy\overline{z}$
+\caption{$ G_{wxyz} = w\overline{x}\overline{z} + \overline{w}\overline{y}z + wy\overline{z}$}
+\end{figure}
+
 \subsubsection{Schemat układu}
-% screen z Xilinxa lub poszukać opcji eksportu grafiki
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie2/schematic_zad2.png}
+	}
+\end{figure}
 \subsubsection{Kod VHDL}
-% tutaj użyjemy listing do wczytania pliku z kodem \lstinputlisting{}
+\lstinputlisting{zadanie2/vhdl_zad2.vhd}
 \subsubsection{Symulacja}
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie2/simulation_zad2.png}
+	}
+\end{figure}
 % to samo co ze schematem lecz tytułowa symulacja
 \section{Zadanie 3}
 \subsection{Polecenie}
@@ -177,24 +217,24 @@ Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena
 	% \caption{Add caption}
 	\resizebox{0.5\textwidth}{!}{
 		\begin{tabular}{?c?c|c|c|c?c|c|c|c?}\hlineB{2.5}
-			\multirow{2}[4]{*}{Kod dziesiętny} & \multicolumn{4}{c?}{NKB} & \multicolumn{4}{c?}{Kod Ikena} \bigstrut                                   \\\clineB{2-9}{2.5}
-			                                   & w                        & x                                        & y & z & w & x & y & z \bigstrut \\\hlineB{2.5}
-			0                                  & 0                        & 0                                        & 0 & 0 & 0 & 0 & 0 & 0 \bigstrut \\\hline
-			1                                  & 0                        & 0                                        & 0 & 1 & 0 & 0 & 0 & 1 \bigstrut \\\hline
-			2                                  & 0                        & 0                                        & 1 & 0 & 0 & 0 & 1 & 0 \bigstrut \\\hline
-			3                                  & 0                        & 0                                        & 1 & 1 & 0 & 0 & 1 & 1 \bigstrut \\\hline
-			4                                  & 0                        & 1                                        & 0 & 0 & 0 & 1 & 0 & 0 \bigstrut \\\hline
-			5                                  & 0                        & 1                                        & 0 & 1 & 1 & 0 & 1 & 1 \bigstrut \\\hline
-			6                                  & 0                        & 1                                        & 1 & 0 & 1 & 1 & 0 & 0 \bigstrut \\\hline
-			7                                  & 0                        & 1                                        & 1 & 1 & 1 & 1 & 0 & 1 \bigstrut \\\hline
-			8                                  & 1                        & 1                                        & 0 & 0 & 1 & 1 & 1 & 0 \bigstrut \\\hline
-			9                                  & 1                        & 0                                        & 0 & 1 & 1 & 1 & 1 & 1 \bigstrut \\\hline
-			10                                 & 1                        & 0                                        & 1 & 0 & - & - & - & - \bigstrut \\\hline
-			11                                 & 1                        & 0                                        & 1 & 1 & - & - & - & - \bigstrut \\\hline
-			12                                 & 1                        & 1                                        & 0 & 0 & - & - & - & - \bigstrut \\\hline
-			13                                 & 1                        & 1                                        & 0 & 1 & - & - & - & - \bigstrut \\\hline
-			14                                 & 1                        & 1                                        & 1 & 0 & - & - & - & - \bigstrut \\\hline
-			15                                 & 1                        & 1                                        & 1 & 1 & - & - & - & - \bigstrut \\\hlineB{2.5}
+			\multirow{2}[4]{*}{Kod dziesiętny} & \multicolumn{4}{c?}{NKB} & \multicolumn{4}{c?}{Kod Aikena} \bigstrut                                   \\\clineB{2-9}{2.5}
+			                                   & w                        & x                                         & y & z & w & x & y & z \bigstrut \\\hlineB{2.5}
+			0                                  & 0                        & 0                                         & 0 & 0 & 0 & 0 & 0 & 0 \bigstrut \\\hline
+			1                                  & 0                        & 0                                         & 0 & 1 & 0 & 0 & 0 & 1 \bigstrut \\\hline
+			2                                  & 0                        & 0                                         & 1 & 0 & 0 & 0 & 1 & 0 \bigstrut \\\hline
+			3                                  & 0                        & 0                                         & 1 & 1 & 0 & 0 & 1 & 1 \bigstrut \\\hline
+			4                                  & 0                        & 1                                         & 0 & 0 & 0 & 1 & 0 & 0 \bigstrut \\\hline
+			5                                  & 0                        & 1                                         & 0 & 1 & 1 & 0 & 1 & 1 \bigstrut \\\hline
+			6                                  & 0                        & 1                                         & 1 & 0 & 1 & 1 & 0 & 0 \bigstrut \\\hline
+			7                                  & 0                        & 1                                         & 1 & 1 & 1 & 1 & 0 & 1 \bigstrut \\\hline
+			8                                  & 1                        & 0                                         & 0 & 0 & 1 & 1 & 1 & 0 \bigstrut \\\hline
+			9                                  & 1                        & 0                                         & 0 & 1 & 1 & 1 & 1 & 1 \bigstrut \\\hline
+			10                                 & 1                        & 0                                         & 1 & 0 & - & - & - & - \bigstrut \\\hline
+			11                                 & 1                        & 0                                         & 1 & 1 & - & - & - & - \bigstrut \\\hline
+			12                                 & 1                        & 1                                         & 0 & 0 & - & - & - & - \bigstrut \\\hline
+			13                                 & 1                        & 1                                         & 0 & 1 & - & - & - & - \bigstrut \\\hline
+			14                                 & 1                        & 1                                         & 1 & 0 & - & - & - & - \bigstrut \\\hline
+			15                                 & 1                        & 1                                         & 1 & 1 & - & - & - & - \bigstrut \\\hlineB{2.5}
 		\end{tabular}%
 	}
 	\label{zad3-TableTrue}%
@@ -211,7 +251,7 @@ Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena
 \implicant{7}{14}
 \autoterms[-]
 \end{karnaugh-map}
-\caption*{$w = zx + zw + y$}
+\caption*{$w_A = xz + xy + w$}
 \end{minipage}
 \begin{minipage}[c]{0.4\linewidth}
 \begin{karnaugh-map}[4][4][1][$yz$][$wx$]
@@ -222,12 +262,12 @@ Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena
 \implicantedge{4}{12}{6}{14}
 \autoterms[-]
 \end{karnaugh-map}
-\caption*{$x = z\overline{x} + zw + y$}
+\caption*{$x_A = x\overline{z} + xy + w$}
 \end{minipage}
 \end{figure}
 
 \begin{figure}[H]
-	\centering
+\centering
 \begin{minipage}[c]{0.4\linewidth}
 \begin{karnaugh-map}[4][4][1][$yz$][$wx$]
 \maxterms{0,1,4,6,7}
@@ -237,7 +277,7 @@ Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena
 \implicantedge{3}{2}{11}{10}
 \autoterms[-]
 \end{karnaugh-map}
-\caption*{$y = \overline{x}y + x\overline{y}z + w$}
+\caption*{$y_A = \overline{x}y + x\overline{y}z + w$}
 \end{minipage}
 \begin{minipage}[c]{0.4\linewidth}
 \begin{karnaugh-map}[4][4][1][$yz$][$wx$]
@@ -246,16 +286,26 @@ Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena
 \implicant{1}{11}
 \autoterms[-]
 \end{karnaugh-map}
-\caption*{$z = x$}
+\caption*{$z_A = z$}
 \end{minipage}
 
 \end{figure}
 \subsubsection{Schemat układu}
-% screen z Xilinxa lub poszukać opcji eksportu grafiki
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie3/schematic_zad3.png}
+	}
+\end{figure}
 \subsubsection{Kod VHDL}
-% tutaj użyjemy listing do wczytania pliku z kodem \lstinputlisting{}
+\lstinputlisting{zadanie3/vhdl_zad3.vhd}
 \subsubsection{Symulacja}
-% to samo co ze schematem lecz tytułowa symulacja
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie3/simulation_zad3.png}
+	}
+\end{figure}
 \section{Wnioski}
 
 \end{document}
