@@ -203,7 +203,7 @@ Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena
 \begin{figure}[H]
 \centering
 \begin{minipage}[c]{0.4\linewidth}
-\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
+\begin{karnaugh-map}[4][4][1][$yz$][$wx$]
 \maxterms{0,1,2,3,4}
 \minterms{5,6,7,8,9}
 \implicant{12}{10}
@@ -214,7 +214,7 @@ Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena
 \caption*{$w = zx + zw + y$}
 \end{minipage}
 \begin{minipage}[c]{0.4\linewidth}
-\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
+\begin{karnaugh-map}[4][4][1][$yz$][$wx$]
 \maxterms{0,1,2,3,5}
 \minterms{4,6,7,8,9}
 \implicant{12}{10}
@@ -229,18 +229,18 @@ Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena
 \begin{figure}[H]
 	\centering
 \begin{minipage}[c]{0.4\linewidth}
-\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
-\maxterms{0,1,4,6}
-\minterms{2,3,5,7,8,9}
+\begin{karnaugh-map}[4][4][1][$yz$][$wx$]
+\maxterms{0,1,4,6,7}
+\minterms{2,3,5,8,9}
 \implicant{12}{10}
-\implicant{5}{15}
+\implicant{5}{13}
 \implicantedge{3}{2}{11}{10}
 \autoterms[-]
 \end{karnaugh-map}
-\caption*{$y = \overline{z}w + zx + y$}
+\caption*{$y = \overline{x}y + x\overline{y}z + w$}
 \end{minipage}
 \begin{minipage}[c]{0.4\linewidth}
-\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
+\begin{karnaugh-map}[4][4][1][$yz$][$wx$]
 \maxterms{0,2,4,6,8}
 \minterms{1,3,5,7,9}
 \implicant{1}{11}
