@@ -15,6 +15,7 @@
 \usepackage{boldline}%edytowanie grubości krawędzi w tabelach \hlineB{} \clineB{}{}
 \usepackage{array}%grubsze kolumny w tabeli
 \usepackage{bigstrut}
+\usepackage{caption}
 %Ustawienie paczki hyperref
 \hypersetup{
      colorlinks,
@@ -137,8 +138,8 @@ Implementacja funkcji logicznej \textbf{$G(w,x,y,z) = \prod(0, 2, 3, 4, 6, 7, 9,
 
 \resizebox{0.5\textwidth}{!}{
 	\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
-		\minterms{2,4,5,10,11} % na tych koordynatach umieść jedynki (1)
-		\autoterms[0] % umieść ten symbol w miejscach niezdefiniowanych
+	\minterms{2,4,5,10,11} % na tych koordynatach umieść jedynki (1)
+	\autoterms[0] % umieść ten symbol w miejscach niezdefiniowanych
 	% \maxterms{0,1,3,6,7,8,9,12,13,14,15} % na tych koordynatach umieść zera (0)
 	% \indeterminants{2,5} 
 	% \implicant{3}{2}
@@ -188,23 +189,56 @@ Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena
 	\label{zad3-TableTrue}%
 \end{table}%
 \subsubsection{Siatki Karnaugh}
-\begin{center}
-\begin{minipage}[c]{0.45\linewidth}
+\begin{figure}[H]
+\centering
+\begin{minipage}[c]{0.4\linewidth}
 \begin{karnaugh-map}[4][4][1][$wx$][$yz$]
-	\maxterms{0,1,2,3,4}
-	\minterms{5,6,7,8,9}
-	\autoterms[-]
+\maxterms{0,1,2,3,4}
+\minterms{5,6,7,8,9}
+\implicant{12}{10}
+\implicant{5}{15}
+\implicant{7}{14}
+\autoterms[-]
 \end{karnaugh-map}
+\caption*{$w = zx + zw + y$}
+\end{minipage}
+\begin{minipage}[c]{0.4\linewidth}
+\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
+\maxterms{0,1,2,3,5}
+\minterms{4,6,7,8,9}
+\implicant{12}{10}
+\implicant{7}{14}
+\implicantedge{4}{12}{6}{14}
+\autoterms[-]
+\end{karnaugh-map}
+\caption*{$x = z\overline{x} + zw + y$}
+\end{minipage}
+\end{figure}
 
+\begin{figure}[H]
+	\centering
+\begin{minipage}[c]{0.4\linewidth}
+\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
+\maxterms{0,1,4,6}
+\minterms{2,3,5,7,8,9}
+\implicant{12}{10}
+\implicant{5}{15}
+\implicantedge{3}{2}{11}{10}
+\autoterms[-]
+\end{karnaugh-map}
+\caption*{$y = \overline{z}w + zx + y$}
 \end{minipage}
-\begin{minipage}[c]{0.45\linewidth}
-		\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
-			% \maxterms{0,1,2,3,4}
-			% \minterms{5,6,7,8,9}
-			\autoterms[-]
-		\end{karnaugh-map}
+\begin{minipage}[c]{0.4\linewidth}
+\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
+\maxterms{0,2,4,6,8}
+\minterms{1,3,5,7,9}
+\implicant{1}{11}
+\autoterms[-]
+\end{karnaugh-map}
+\caption*{$z = x$}
 \end{minipage}
-\end{center}
+
+\end{figure}
 \subsubsection{Schemat układu}
 % screen z Xilinxa lub poszukać opcji eksportu grafiki
 \subsubsection{Kod VHDL}
