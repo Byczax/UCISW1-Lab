@@ -24,10 +24,12 @@
      linkcolor=black,
      urlcolor=black
 }
-
 \graphicspath{{pictures/}}
 \geometry{margin=0.7in}
 \pagestyle{fancy}
+
+% (fancyhdr)	You might also make \topmargin smaller to compensate:
+
 \cfoot{Strona \thepage}
 \rhead{Strona \thepage}
 \lhead{\typdoc}
@@ -64,6 +66,8 @@
 %----------------------------------------------------------------------
 
 \begin{document}
+\setlength{\headheight}{15pt}
+
 %-------------------------------------TABELA-DANYCH--------------------------------------------------
 \begin{table}[H]
 	\centering
@@ -80,12 +84,19 @@
 \end{table}
 %----------------------------------------------------------------------------------------------------
 \tableofcontents
-\clearpage
+\cleardoublepage
 \section{Zadanie 1}
 \subsection{Polecenie}
 Wykonać dowolną bramkę - funktor: 2 wejścia, 1 wyjście
 \subsection{Rozwiązanie}
 \subsubsection{Schemat układu}
+\begin{figure}[H]
+   \centering
+   \resizebox*{\textwidth}{!}{
+	  \includegraphics{schemat-zad1.png}
+   }
+\end{figure}
+
 % screen z Xilinxa lub poszukać opcji eksportu grafiki
 \subsubsection{Kod VHDL}
 % tutaj użyjemy listing do wczytania pliku z kodem \lstinputlisting{}
