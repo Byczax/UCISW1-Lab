@@ -81,15 +81,6 @@ keywordstyle=\color{ZeroBlue},
 \def\tworcy{Maciej Byczko\\Bartosz Matysiak} %<<< autorzy
 \def\zajinfo{PN 10:50 TP} %<<< informacje dotyczące zajęć
 \def\typdoc{Sprawozdanie} %<<< typ dokumentu tj Sprawozdanie, zadania itp. {Matematyka dyskretna/Sprawozdanie z Miernictwa}
-% \tableofcontents % Stworzenie spis treści
-%JEŻELI COS JESZCZE POTRZEBA W TEJ SEKCJI TO POINFORMOWAĆ!!!
-%----------------------------------------------------------------------
-
-%-----------------------SEKCJA FORMATOWANIA----------------------------
-% \textbf{pogrubienie}  \textit{kursywa}    \underline{podkreślenie}
-% \vspace*{2mm} - Odstęp pionowy między tekstem
-%----------------------------------------------------------------------
-
 \begin{document}
 \setlength{\headheight}{15pt}
 
@@ -179,15 +170,12 @@ Implementacja funkcji logicznej \textbf{$G(w,x,y,z) = \prod(0, 2, 3, 4, 6, 7, 9,
 	\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
 	\minterms{2,4,5,10,11} % na tych koordynatach umieść jedynki (1)
 	\autoterms[0] % umieść ten symbol w miejscach niezdefiniowanych
-	% \maxterms{0,1,3,6,7,8,9,12,13,14,15} % na tych koordynatach umieść zera (0)
-	% \indeterminants{2,5} 
-	% \implicant{3}{2}
 	\implicant{4}{5} % połącz te komórki
 	\implicant{11}{10}
 	\implicantedge{2}{2}{10}{10} %połącz komórki brzegowe
 	\end{karnaugh-map}
 }
-\caption{$ G_{wxyz} = w\overline{x}\overline{z} + \overline{w}\overline{y}z + wy\overline{z}$}
+\caption{$ Wyj_G = w\overline{x}\overline{z} + \overline{w}\overline{y}z + wy\overline{z}$}
 \end{figure}
 
 \subsubsection{Schemat układu}
@@ -206,7 +194,7 @@ Implementacja funkcji logicznej \textbf{$G(w,x,y,z) = \prod(0, 2, 3, 4, 6, 7, 9,
 		\includegraphics{zadanie2/simulation_zad2.png}
 	}
 \end{figure}
-% to samo co ze schematem lecz tytułowa symulacja
+\newpage
 \section{Zadanie 3}
 \subsection{Polecenie}
 Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena}
@@ -214,7 +202,6 @@ Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena
 \subsubsection{Tabela Prawdy}
 \begin{table}[H]
 	\centering
-	% \caption{Add caption}
 	\resizebox{0.5\textwidth}{!}{
 		\begin{tabular}{?c?c|c|c|c?c|c|c|c?}\hlineB{2.5}
 			\multirow{2}[4]{*}{Kod dziesiętny} & \multicolumn{4}{c?}{NKB} & \multicolumn{4}{c?}{Kod Aikena} \bigstrut                                   \\\clineB{2-9}{2.5}
@@ -306,7 +293,10 @@ Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena
 		\includegraphics{zadanie3/simulation_zad3.png}
 	}
 \end{figure}
-% \section{Wnioski}
-
-
+\section{Wnioski}
+Do wykonania zadań wymagana była podstawowa wiedza z układów cyfrowych oraz bramek logicznych.\\
+Pierwsze zadanie polegało na przetestowaniu jednej z dostępnych bramek aby pokazać działanie symulatora oraz nauczyć nas wgrywania programu na dostępny układ.\\
+Drugie zadanie wymagało od nas zastosowania funkcji boolowskich oraz algebry Boole'a.\\
+Trzecie zadanie wymagało od nas napisania translatora z kodu naturalnego binarnego do kodu Aikena. Kod ten nie jest zupełny dlatego zastosowaliśmy technikę niekreślonych wyjściowych wektorów bitowych, dla wejść znajdujących się poza dziedziną funkcji translatora. W alternatywnym podejściu możliwe byłoby ustalenie wartości spoza zbioru wartości funkcji translatora oraz zastosowanie jej jako kodu błędu.\\
+Podczas zajęć nauczyliśmy się także, że symulator chociaż proponuje własne nazwy wejść/wyjść to w późniejszych etapach nie przyjmuje ich podczas budowania wersji programowalnej, głównie chodzi tutaj o symbole specjalne typu "\_".
 \end{document}

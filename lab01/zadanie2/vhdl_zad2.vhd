@@ -5,34 +5,35 @@ LIBRARY UNISIM;
 USE UNISIM.Vcomponents.ALL;
 ENTITY schematic_zad2_schematic_zad2_sch_tb IS
 END schematic_zad2_schematic_zad2_sch_tb;
-ARCHITECTURE behavioral OF schematic_zad2_schematic_zad2_sch_tb IS 
+ARCHITECTURE behavioral OF schematic_zad2_schematic_zad2_sch_tb IS
 
    COMPONENT schematic_zad2
-   PORT(  w	:	IN	STD_LOGIC; 
-          x	:	IN	STD_LOGIC; 
-          y	:	IN	STD_LOGIC; 
-			 z	:	IN	STD_LOGIC; 
-          G_wxyz	:	OUT	STD_LOGIC);
+      PORT (
+         WejW : IN STD_LOGIC;
+         WejX : IN STD_LOGIC;
+         WejZ : IN STD_LOGIC;
+         WejY : IN STD_LOGIC;
+         WyjG : OUT STD_LOGIC);
    END COMPONENT;
 
-   SIGNAL w	:	STD_LOGIC :='0';
-   SIGNAL x	:	STD_LOGIC :='0';
-   SIGNAL y	:	STD_LOGIC :='0';
-	SIGNAL z	:	STD_LOGIC :='0';
-   SIGNAL G_wxyz	:	STD_LOGIC;
+   SIGNAL WejW : STD_LOGIC := '0';
+   SIGNAL WejX : STD_LOGIC := '0';
+   SIGNAL WejZ : STD_LOGIC := '0';
+   SIGNAL WejY : STD_LOGIC := '0';
+   SIGNAL WyjG : STD_LOGIC := '0';
 
 BEGIN
 
-   UUT: schematic_zad2 PORT MAP(
-		w => w, 
-		x => x, 
-		y => y,
-		z => z,		
-		G_wxyz => G_wxyz
+   UUT : schematic_zad2 PORT MAP(
+      WejW => WejW,
+      WejX => WejX,
+      WejZ => WejZ,
+      WejY => WejY,
+      WyjG => WyjG
    );
 
-    w <= not w after 800ns;
-    x <= not x after 400ns;
-    y <= not y after 200ns;
-	 z <= not z after 100ns;
+   WejW <= NOT WejW AFTER 800ns;
+   WejX <= NOT WejX AFTER 400ns;
+   WejY <= NOT WejY AFTER 200ns;
+   WejZ <= NOT WejZ AFTER 100ns;
 END;
