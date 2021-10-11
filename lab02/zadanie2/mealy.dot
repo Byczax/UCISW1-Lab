@@ -1,0 +1,24 @@
+digraph{
+//    layout = circo;
+   rankdir = LR;
+   node [shape=circle];
+//    edge [labeldistance=6 labelangle=50]
+   q0 [label=<Q<sub>0</sub>>]
+   q1 [label=<Q<sub>1</sub>>]
+   q2 [label=<Q<sub>2</sub>>]
+   q3 [label=<Q<sub>3</sub>>]
+   q4 [label=<Q<sub>4</sub>>]
+   q5 [label=<Q<sub>5</sub>>]
+   q0 -> q1 -> q2 [label=<z<sub>1</sub>|y<sub>0</sub>>]
+   q2 -> q3 [label=<z<sub>0</sub>|y<sub>0</sub>>]
+   q3 -> q4 -> q5 [label=<z<sub>1</sub>|y<sub>0</sub>>]
+   q0 -> q0 [label=<z<sub>0</sub>|y<sub>0</sub>>]
+   q1 -> q0 [label=<z<sub>0</sub>|y<sub>0</sub>>]
+   q2 -> q2 [label=<z<sub>1</sub>|y<sub>0</sub>>]
+   q3 -> q0 [label=<z<sub>0</sub>|y<sub>0</sub>>]
+   q4 -> q0 [label=<z<sub>0</sub>|y<sub>0</sub>>]
+   q5 -> q1 [label=<z<sub>1</sub>|y<sub>0</sub>>]
+   q5 -> q3 [label=<z<sub>0</sub>|y<sub>0</sub>>]
+
+   
+}

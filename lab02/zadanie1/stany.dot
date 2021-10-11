@@ -1,0 +1,13 @@
+digraph{
+   layout = circo;
+   node [shape=circle];
+   s6 [label="Stan 6 (1100)"]
+   s5 [label="Stan 5 (1011)"]
+   s4 [label="Stan 4 (0100)"]
+   s3 [label="Stan 3 (0011)"]
+   s2 [label="Stan 2 (0010)"]
+   s1 [label="Stan 1 (0001)"]
+   s0 [label="Stan 0 (0000)"]
+
+   s6 -> s5 -> s4 -> s3 -> s2 -> s1 -> s0 -> s6
+}
