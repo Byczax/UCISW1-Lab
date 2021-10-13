@@ -328,7 +328,7 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
       \begin{tabular}{|c?c|c|c?c?c|c|c?c?c|c|c|}
       \hline
       \multirow{2}[4]{*}{S} & \multicolumn{3}{c?}{Q(t)} & \multirow{2}[4]{*}{Z} & \multicolumn{3}{c?}{Q(t+1)} & \multirow{2}[4]{*}{Y} & \multicolumn{3}{c|}{D(t)} \bigstrut\\
-  \clineB{2-4}{2.5}\clineB{6-8}{2.5}\clineB{10-12}{2.5}      & $Q_2$ & $Q_1$ & $Q_0$ &   & $Q_2$ & $Q_1$ & $Q_0$ &   & $D_2$ & $D_1$ & $D_0$ \bigstrut\\
+  \clineB{2-4}{2.5}\clineB{6-8}{2.5}\clineB{10-12}{2.5}      & $Q_2$ & $Q_1$ & $Q_0$ &   & $Q_2$ & $Q_1$ & $Q_0$ &   & $T_2$ & $T_1$ & $T_0$ \bigstrut\\
       \hlineB{2.5}
       $Q_0$ & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \bigstrut\\
       \hline
@@ -372,10 +372,10 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
     \centering
     \begin{minipage}[c]{0.49\linewidth}
     \begin{karnaugh-map}[4][4][1][$Q_0Z$][$Q_2Q_1$]
-    \minterms{5,8,10,11}
-    \maxterms{0,1,2,3,4,6,7,9}
+    \minterms{7,8,10,11}
+    \maxterms{0,1,2,3,4,5,6,9}
     \autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
-    \implicant{5}{13}
+    \implicant{7}{15}
     \implicantedge{12}{8}{14}{10}
     \implicant{15}{10}
     % \minterms{0} % na tych koordynatach umieść jedynki (1)
@@ -385,7 +385,7 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
     \centering
     \vspace{-1cm}
     \hspace{1cm}
-    \caption*{$D_2 = Q_1\ov{Q_0}Z + Q_2\ov{Z} + Q_2Q_0$}
+    \caption*{$T_2 = Q_1Q_0Z + Q_2\ov{Z} + Q_2Q_0$}
     \end{minipage}
     \centering
     \begin{minipage}[c]{0.49\linewidth}
@@ -404,7 +404,7 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
     \centering
     \vspace{-1cm}
     \hspace{1cm}
-    \caption*{$D_1 = \ov{Q_2}Q_0Z + Q_1Q_0 + Q_2Q_0\ov{Z}$}
+    \caption*{$T_1 = \ov{Q_2}Q_0Z + Q_1Q_0 + Q_2Q_0\ov{Z}$}
     \end{minipage}
     \end{figure}
     \vspace{-1cm}
@@ -425,7 +425,7 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
     \centering
     \vspace{-1cm}
     \hspace{1cm}
-    \caption*{$D_0 = \ov{Q_2}Q_0 + Q_1\ov{Z} + \ov{Q_1}\ov{Q_0}Z$}
+    \caption*{$T_0 = \ov{Q_2}Q_0 + Q_1\ov{Z} + \ov{Q_1}\ov{Q_0}Z$}
     \end{minipage}
     \begin{minipage}[c]{0.49\linewidth}
         \begin{karnaugh-map}[4][4][1][$Q_0Z$][$Q_2Q_1$]
