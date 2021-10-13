@@ -17,7 +17,7 @@ digraph{
    q2 -> q2 [label=<z<sub>1</sub>|y<sub>0</sub>>]
    q3 -> q0 [label=<z<sub>0</sub>|y<sub>0</sub>>]
    q4 -> q0 [label=<z<sub>0</sub>|y<sub>0</sub>>]
-   q5 -> q1 [label=<z<sub>1</sub>|y<sub>0</sub>>]
+   q5 -> q2 [label=<z<sub>1</sub>|y<sub>0</sub>>]
    q5 -> q3 [label=<z<sub>0</sub>|y<sub>0</sub>>]
 
    
