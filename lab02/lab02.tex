@@ -372,29 +372,39 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
     \centering
     \begin{minipage}[c]{0.49\linewidth}
     \begin{karnaugh-map}[4][4][1][$Q_0Z$][$Q_2Q_1$]
+    \minterms{5,8,10,11}
+    \maxterms{0,1,2,3,4,6,7,9}
+    \autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+    \implicant{5}{13}
+    \implicantedge{12}{8}{14}{10}
+    \implicant{15}{10}
     % \minterms{0} % na tych koordynatach umieść jedynki (1)
     % \maxterms{1,2,3,4}
-    \autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
     % \implicantedge{0}{0}{8}{8}
     \end{karnaugh-map}
     \centering
     \vspace{-1cm}
     \hspace{1cm}
-    \caption*{$D_2$}
+    \caption*{$D_2 = Q_1\ov{Q_0}Z + Q_2\ov{Z} + Q_2Q_0$}
     \end{minipage}
     \centering
     \begin{minipage}[c]{0.49\linewidth}
     \begin{karnaugh-map}[4][4][1][$Q_0Z$][$Q_2Q_1$]
+    \minterms{3,6,7,10}
+    \maxterms{0,1,2,4,5,8,9,11}
+    \autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+    \implicant{3}{7}
+    \implicant{7}{14}
+    \implicant{14}{10}
     % \minterms{0,11} % na tych koordynatach umieść jedynki (1)
     % \maxterms{1,2,3}
-    \autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
     % \implicant{0}{8}
     % \implicant{12}{10}
     \end{karnaugh-map}
     \centering
     \vspace{-1cm}
     \hspace{1cm}
-    \caption*{$D_1$}
+    \caption*{$D_1 = \ov{Q_2}Q_0Z + Q_1Q_0 + Q_2Q_0\ov{Z}$}
     \end{minipage}
     \end{figure}
     \vspace{-1cm}
@@ -402,6 +412,11 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
     \centering
     \begin{minipage}[c]{0.49\linewidth}
     \begin{karnaugh-map}[4][4][1][$Q_0Z$][$Q_2Q_1$]
+    \minterms{1,2,3,4,6,7,9}
+    \maxterms{0,5,8,10,11}
+    \implicant{3}{6}
+    \implicantedge{4}{12}{6}{14}
+    \implicantedge{1}{1}{9}{9}
     % \minterms{4,12} % na tych koordynatach umieść jedynki (1)
     % \maxterms{0,1}
     \autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
@@ -410,10 +425,13 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
     \centering
     \vspace{-1cm}
     \hspace{1cm}
-    \caption*{$D_0$}
+    \caption*{$D_0 = \ov{Q_2}Q_0 + Q_1\ov{Z} + \ov{Q_1}\ov{Q_0}Z$}
     \end{minipage}
     \begin{minipage}[c]{0.49\linewidth}
         \begin{karnaugh-map}[4][4][1][$Q_0Z$][$Q_2Q_1$]
+        \minterms{10,11}
+        \maxterms{0,1,2,3,4,5,6,7,8,9}
+        \implicant{15}{10}
         % \minterms{4,12} % na tych koordynatach umieść jedynki (1)
         % \maxterms{0,1}
         \autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
@@ -422,7 +440,7 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
         \centering
         \vspace{-1cm}
         \hspace{1cm}
-        \caption*{$Y$}
+        \caption*{$Y = Q_2Q_0 $}
         \end{minipage}
     % \centering
     % \begin{minipage}[c]{0.49\linewidth}
