@@ -476,4 +476,10 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
         }
     \end{figure}
 \section{Wnioski}
+
+Przy wykonywaniu zadań niezbędna okazała się wiedza na temat typów przerzutników i ich działania. Oprócz tego, ćwiczenia wymagały także zapoznania się z opracowaniem dotyczącym zestawu ZL-9572, a konkretniej - generatorów sygnałów prostokątnych \textbf{Clk\_XT} oraz \textbf{Clk\_LF} oraz modułów impulsatora (Rotary Encoder) oraz czterocyfrowego wyświetlacza siedmiosegmentowego. \\
+Pierwsze zadanie dotyczyło stworzenia licznika negatywnego modulo 7 zliczającego w kodzie Aikena. Wykorzystaliśmy w jego rozwiązaniu przerzutniki JK, a konkretnie komponenty FJKC z biblioteki programu Xilinx, przyjmując przy okazji założenie, że praca licznika rozpoczyna się od jego resetu. Możliwą alternatywą były stworzenie schematu opartego na komponentach FJKP, FJKCP lub rozwiązanie mieszane. Dodatkowe wejście \textbf{Prereset} pełniłoby wówczas rolę stanu domyślnego dla przerzutnika, i pozwalałoby mu przyjąć określony stan na początku symulacji, bez konieczności resetu. \\
+Podobne założenie dotyczące pochodzenia stanu początkowego przyjęliśmy także w zadaniu 2. Należało w nim stworzyć układ detektora sekwencji ''11011'' oparty na automacie Mealy'ego. Przyjęliśmy, że układ prawidłowo reaguje na dowolnie długą sekwencję, o ile kończy się ona wcześniej wspomnianą, 5-bitową; możliwe jest w szczególności kilkukrotne wykrycie poprawnej sekwencji w trakcie pracy układu. \\
+W rozszerzonej wersji, zadanie 2 należało rozszerzyć o obsługę wejścia przy pomocy modułu Rotary Encoder, a także prezentację aktualnego stanu układu przy pomocy wyświetlacza siedmiosegmentowego. Niestety, nie udało się zrealizować tej wersji zadania w całości: powiodło się zaimportowanie plików z gotowymi modułami do projektu. Wykorzystujący je schemat okazał się jednak niesyntezowalny. Podejrzewamy, że może mieć to związek z niepoprawnym użyciem przez nas magistrali i błędnym przyporządkowaniem pojedynczych ścieżek w niej zawartych. 
+
 \end{document}
