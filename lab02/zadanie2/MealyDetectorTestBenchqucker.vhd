@@ -36,7 +36,7 @@ BEGIN
 		Q1 => Q1, 
 		CLR => CLR
    );
-	CLR <= '1';
+	CLR <= '0', '1' after 100 ns;
 	CLOCK <= not CLOCK after 50 ns;
 	
 	Z <= '0', '1' after 125 ns, '0' after 225 ns, '1' after 325 ns, '0' after 625 ns, '1' after 825 ns, '0' after 1025 ns, '1' after 1125 ns, '0' after 1225 ns, '1' after 1325 ns, '0' after 1525 ns, '1' after 1625 ns, '0' after 1825 ns, '1' after 1925 ns;

@@ -33,7 +33,7 @@ BEGIN
 		Q3 => Q3, 
 		CLR => CLR
    );
-	CLR <= '1';
+	CLR <= '0', '1' after 100 ns;
 	CLOCK <= not CLOCK after 50 ns;
 
 END;
