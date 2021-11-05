@@ -1,0 +1,12 @@
+# Clocks
+NET "CLOCK" LOC = "P7" | BUFG = CLK | PERIOD = 5ms HIGH 50%;
+
+# Keys
+NET "CLR" LOC = "P42";
+
+# LEDS
+NET "Q0"  LOC = "P35";
+NET "Q1"  LOC = "P29";
+NET "Q2"  LOC = "P33";
+NET "Q3"  LOC = "P34";
+

@@ -287,6 +287,9 @@ Zaprojektować licznik synchroniczny liczący w tył na bazie kodu Aikena w zakr
 		\includegraphics{zadanie1/zad1_simulation.png}
 	}
 \end{figure}
+UWAGA: Powyższy przebieg przedstawia działanie układu licznika rozpoczęte stanem ''0000''.
+\subsubsection{Plik ucf}
+\lstinputlisting{zadanie1/zad1.ucf}
 \section{Zadanie 2}
 \subsection{Polecenie}
 Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, brak resetu, sekwencja prawidłowa 5-bitowa.
@@ -475,6 +478,9 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
             \includegraphics{zadanie2/zad2_simulation.png}
         }
     \end{figure}
+    UWAGA: Powyższy przebieg obrazuje przejście po każdej krawędzi rozpatrywanego grafu automatu Mealy'ego. Przejście do nowego stanu automatu realizuje się w momencie wystąpienia zbocza wznoszącego na wejściu CLOCK. Z przebiegu można odczytać m.in. to, że sekwencja prawidłowa ''11011'' została w przebiegu wykryta dwukrotnie, a także, że w chwili $t = 475 ns$ układ znajdował się w stanie $q_2$, i nie akceptował bieżącej sekwencji.
+    \subsubsection{Plik ucf}
+    \lstinputlisting{zadanie2/zad2.ucf}
 \section{Wnioski}
 
 Przy wykonywaniu zadań niezbędna okazała się wiedza na temat typów przerzutników i ich działania. Oprócz tego, ćwiczenia wymagały także zapoznania się z opracowaniem dotyczącym zestawu ZL-9572, a konkretniej - generatorów sygnałów prostokątnych \textbf{Clk\_XT} oraz \textbf{Clk\_LF} oraz modułów impulsatora (Rotary Encoder) oraz czterocyfrowego wyświetlacza siedmiosegmentowego. \\
