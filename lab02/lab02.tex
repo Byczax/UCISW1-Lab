@@ -290,6 +290,7 @@ Zaprojektować licznik synchroniczny liczący w tył na bazie kodu Aikena w zakr
 UWAGA: Powyższy przebieg przedstawia działanie układu licznika rozpoczęte stanem ''0000''.
 \subsubsection{Plik ucf}
 \lstinputlisting{zadanie1/zad1.ucf}
+\newpage
 \section{Zadanie 2}
 \subsection{Polecenie}
 Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, brak resetu, sekwencja prawidłowa 5-bitowa.
@@ -469,6 +470,7 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
             \includegraphics{zadanie2/zad2_schematic.png}
         }
     \end{figure}
+    \newpage
     \subsubsection{Kod VHDL}
     \lstinputlisting{zadanie2/MealyDetectorTestBenchqucker.vhd}
     \subsubsection{Symulacja}
@@ -481,6 +483,7 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
     UWAGA: Powyższy przebieg obrazuje przejście po każdej krawędzi rozpatrywanego grafu automatu Mealy'ego. Przejście do nowego stanu automatu realizuje się w momencie wystąpienia zbocza wznoszącego na wejściu CLOCK. Z przebiegu można odczytać m.in. to, że sekwencja prawidłowa ''11011'' została w przebiegu wykryta dwukrotnie, a także, że w chwili $t = 475 ns$ układ znajdował się w stanie $q_2$, i nie akceptował bieżącej sekwencji.
     \subsubsection{Plik ucf}
     \lstinputlisting{zadanie2/zad2.ucf}
+    \newpage
 \section{Zadanie 2 - wersja rozszerzona}
     \subsection{Polecenie}
     Rozszerzenie podstawowej wersji detektora o obsługę wyświetlacza siedmiosegmentowego.
@@ -496,10 +499,11 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
         \lstinputlisting{zadanie2-extended/zad2_extended.vhd}
         \subsubsection{Plik ucf}
         \lstinputlisting{zadanie2-extended/zad2_extended.ucf}
+\newpage
 \section{Wnioski}
 
 Przy wykonywaniu zadań niezbędna okazała się wiedza na temat typów przerzutników i ich działania. Oprócz tego, ćwiczenia wymagały także zapoznania się z opracowaniem dotyczącym zestawu ZL-9572, a konkretniej - generatorów sygnałów prostokątnych \textit{Clk\_XT} i \textit{Clk\_LF} oraz modułu czterocyfrowego wyświetlacza siedmiosegmentowego. \\
-Pierwsze zadanie dotyczyło stworzenia licznika negatywnego modulo 7 zliczającego w kodzie Aikena. Wykorzystaliśmy w jego rozwiązaniu przerzutniki JK, a konkretnie komponenty FJKC z biblioteki programu Xilinx, przyjmując przy okazji założenie, że praca licznika rozpoczyna się od jego resetu (sprowadzenia do stanu ''0000''), który należało zrealizować, czy to poprzez uaktywnienie sygnału CLR na etapie symulacji, czy naciśnięcie odpowiednio przypisanego przycisku w implementacji sprzętowej. Alternatywnie możliwe byłoby także wykorzystanie komponentów FJKP bądź FJKCP, gdyby zachodziła konieczność stworzenia układu rozpoczynającego pracę w innym stanie początkowym. \\
+Pierwsze zadanie dotyczyło stworzenia licznika negatywnego modulo 7 zliczającego w kodzie Aikena. Wykorzystaliśmy w jego rozwiązaniu przerzutniki JK, a konkretnie komponenty FJKC z~biblioteki programu Xilinx, przyjmując przy okazji założenie, że praca licznika rozpoczyna się od~jego resetu (sprowadzenia do stanu ''0000''), który należało zrealizować, czy to poprzez uaktywnienie sygnału CLR na etapie symulacji, czy naciśnięcie odpowiednio przypisanego przycisku w implementacji sprzętowej. Alternatywnie możliwe byłoby także wykorzystanie komponentów FJKP bądź FJKCP, gdyby zachodziła konieczność stworzenia układu rozpoczynającego pracę w~innym stanie początkowym. \\
 Podobne założenie dotyczące ustalenia stanu początkowego poprzez reset na początku pracy układu przyjęliśmy także w zadaniu 2. Należało w nim stworzyć układ detektora sekwencji ''11011'' oparty na automacie Mealy'ego. Przyjęliśmy, że układ prawidłowo reaguje na dowolnie długą sekwencję, o ile kończy się ona wcześniej wspomnianą, 5-bitową; możliwe jest w szczególności kilkukrotne wykrycie poprawnej sekwencji w trakcie pracy układu. \\
 W rozszerzonej wersji, zadanie 2 należało rozszerzyć o prezentację aktualnego stanu układu przy pomocy wyświetlacza siedmiosegmentowego. Jego obsługę zrealizowano przy pomocy układu transkodera HexTo7Seg, który, jak sugeruje nazwa owego modułu, przekształca 4-bitową reprezentację cyfry heksadecymalnej na odpowiednią sekwencję 7 bitów do zapalenia odpowiednich segmentów wyświetlacza.
 
