@@ -287,9 +287,11 @@ Zaprojektować licznik synchroniczny liczący w tył na bazie kodu Aikena w zakr
 		\includegraphics{zadanie1/zad1_simulation_v2.png}
 	}
 \end{figure}
-UWAGA: Powyższy przebieg przedstawia działanie układu licznika rozpoczęte stanem ''0000''.
+UWAGA: Powyższy przebieg przedstawia działanie układu licznika rozpoczęte stanem ''0000''. 
 \subsubsection{Plik ucf}
 \lstinputlisting{zadanie1/zad1.ucf}
+
+Podczas zajęć laboratoryjnych, przy pierwszej wersji programu, aby licznik rozpoczął pracę, musieliśmy trzymać przycisk resetu, gdyż zastosowaliśmy negację na wejściu CLR.
 \newpage
 \section{Zadanie 2}
 \subsection{Polecenie}
@@ -483,6 +485,9 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
     UWAGA: Powyższy przebieg obrazuje przejście po każdej krawędzi rozpatrywanego grafu automatu Mealy'ego. Przejście do nowego stanu automatu realizuje się w momencie wystąpienia zbocza wznoszącego na wejściu CLOCK. Z przebiegu można odczytać m.in. to, że sekwencja prawidłowa ''11011'' została w przebiegu wykryta dwukrotnie, a także, że w chwili $t = 475 ns$ układ znajdował się w stanie $q_2$, i nie akceptował bieżącej sekwencji.
     \subsubsection{Plik ucf}
     \lstinputlisting{zadanie2/zad2.ucf}
+
+    Podczas zajęć laboratoryjnych, przy pierwszej wersji programu, aby wprowadzić kombinację, musieliśmy trzymać przycisk resetu, gdyż zastosowaliśmy negację na wejściu CLR.
+    
     \newpage
 \section{Zadanie 2 - wersja rozszerzona}
     \subsection{Polecenie}
