@@ -1,0 +1,18 @@
+# Clocks
+NET "CLOCK" LOC = "P7" | BUFG = CLK | PERIOD = 5ms HIGH 50%;
+
+# Keys
+NET "Z" LOC = "P42";
+NET "CLR" LOC = "P40";
+
+# LEDS
+NET "Y"  LOC = "P35";
+
+# DISPL. 7-SEG
+NET "WYJ(0)" LOC = "P12";	# Seg. A; shared with LED<10>
+NET "WYJ(1)" LOC = "P13";	# Seg. B; shared with LED<8>
+NET "WYJ(2)" LOC = "P22";	# Seg. C; shared with LED<12>
+NET "WYJ(3)" LOC = "P19";	# Seg. D; shared with LED<14>
+NET "WYJ(4)" LOC = "P14";	# Seg. E; shared with LED<15>
+NET "WYJ(5)" LOC = "P11";	# Seg. F; shared with LED<9>
+NET "WYJ(6)" LOC = "P20";	# Seg. G; shared with LED<13>
