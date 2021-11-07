@@ -1,0 +1,15 @@
+# Clocks
+NET "CLCK" LOC = "P7" | BUFG = CLK | PERIOD = 5ms HIGH 50%;
+
+# Keys
+NET "WEJ(0)" LOC = "P42";
+NET "WEJ(1)" LOC = "P40";
+NET "WEJ(2)" LOC = "P43";
+NET "WEJ(3)" LOC = "P38";
+NET "WEJ(4)" LOC = "P37";
+NET "WEJ(5)" LOC = "P36";  # shared with ROT_A
+NET "WEJ(6)" LOC = "P24";  # shared with ROT_B
+NET "WEJ(7)" LOC = "P39";  # GSR
+
+# LEDS
+NET "WYJ"  LOC = "P35";

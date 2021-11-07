@@ -113,27 +113,62 @@ W zależności od wymagania można wprowadzić także obowiązkowe wprowadzanie 
 \subsubsection{Schemat stanów}
 % \subsubsection{Tabela prawdy}
 % \subsubsection{Siatki Karnaugh}
-\subsubsection{Schemat układu}
+\subsubsection{Schematy układu} %myślę, że tu damy oba schematy: bez i z obsługą klawiatury, na razie daję ten pierwszy
+Schemat dla wersji z przyciskami jako inputem:
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie1/zad1_scheme_button_input.png}
+	}
+\end{figure}
+Schemat wersji wykorzystującej klawiaturę jako wejście:
+% na morzu hula hulami, wieje wieje wiatr
 \subsubsection{Kod VHDL}
+\lstinputlisting{zadanie1/testbench.vhd}
 \subsubsection{Symulacja}
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie1/zad1_simulation.png}
+	}
+\end{figure}
 \subsection{Fizyczna implementacja}
 \subsubsection{Kod UCF}
-
+Kod dla wersji z przyciskami jako inputem:
+\lstinputlisting{zadanie1/ZL-9572.ucf}
+Schemat wersji wykorzystującej klawiaturę jako wejście:
+% na morzu hula hulami, wieje wieje wiatr
 \section{Zadanie 2}
 \subsection{Polecenie}
 Układ arytmetyczny pracujący na dwóch argumentach 4-bitowych wyrażonych w kodzie Aikena
 i generujący stosowny wynik w tymże kodzie. 
 \subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
+%\subsubsection{Schemat stanów} % pozwolę sobie zauważyć, że stanów, w układach kombinacyjnych, takim jak ten, nie ma
+%Dałbym bardziej cos w rodzaju notki wstępnej, np.
+\subsection{Uwagi wstępne}
+% i tu opis ogólnej struktury układu
 
-\subsubsection{Tabela prawdy}
+\subsubsection{Tabele prawdy} %liczba mnoga; tabele dla każdego podukładu
 \subsubsection{Siatki Karnaugh}
 \subsubsection{Schemat układu}
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie2/zad2_scheme.png}
+	}
+\end{figure}
 \subsubsection{Kod VHDL}
+\lstinputlisting{zadanie2/testbench.vhd}
 \subsubsection{Symulacja}
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie2/zad2_simulation.png}
+	}
+\end{figure}
 \subsection{Fizyczna implementacja}
 \subsubsection{Kod UCF}
-
+\lstinputlisting{zadanie2/ZL-9572.ucf}
 \section{Zadanie 3}
 \subsection{Polecenie}
 Konwerter cyfry szesnastkowej zapisanej na czterech bitach od 0 do 9, A do F 

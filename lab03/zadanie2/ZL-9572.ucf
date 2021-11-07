@@ -1,0 +1,16 @@
+# Keys
+NET "WEJA(0)" LOC = "P42";
+NET "WEJA(1)" LOC = "P40";
+NET "WEJA(2)" LOC = "P43";
+NET "WEJA(3)" LOC = "P38";
+NET "WEJB(0)" LOC = "P37";
+NET "WEJB(1)" LOC = "P36";  # shared with ROT_A
+NET "WEJB(2)" LOC = "P24";  # shared with ROT_B
+NET "WEJB(3)" LOC = "P39";  # GSR
+
+# LEDS
+NET "WYJ0"  LOC = "P35";
+NET "WYJ1"  LOC = "P29";
+NET "WYJ2"  LOC = "P33";
+NET "WYJ3"  LOC = "P34";
+NET "Przepelnienie"  LOC = "P28";
