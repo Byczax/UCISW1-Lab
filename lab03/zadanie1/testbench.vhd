@@ -18,7 +18,6 @@ ARCHITECTURE behavioral OF scheme_scheme_sch_tb IS
    SIGNAL CLCK	:	STD_LOGIC := '0';
 
 BEGIN
-
    UUT: scheme PORT MAP(
 		WEJ => WEJ, 
 		WYJ => WYJ, 
@@ -27,5 +26,4 @@ BEGIN
 
 	CLCK <= not CLCK after 50 ns;	
 	WEJ <= B"0000_0000", B"0110_0001" after 200 ns, B"0010_0011" after 300 ns, B"0110_0001" after 400 ns, B"0111_0011" after 500 ns;
-
 END;

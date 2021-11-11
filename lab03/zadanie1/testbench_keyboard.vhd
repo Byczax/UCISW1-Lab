@@ -24,7 +24,6 @@ ARCHITECTURE behavioral OF scheme_scheme_sch_tb IS
    SIGNAL RS_RX	:	STD_LOGIC;
 
 BEGIN
-
    UUT: scheme PORT MAP(
 		WYJ => WYJ, 
 		CLCK => CLCK, 
@@ -33,5 +32,4 @@ BEGIN
 		RESET => RESET, 
 		RS_RX => RS_RX
    );
-
 END;

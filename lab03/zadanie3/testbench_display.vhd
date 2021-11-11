@@ -20,13 +20,10 @@ ARCHITECTURE behavioral OF scheme_scheme_sch_tb IS
    SIGNAL CLCK	:	STD_LOGIC;
 
 BEGIN
-
    UUT: scheme PORT MAP(
 		WEJ => WEJ, 
 		WYJSW => WYJSW, 
 		WYJDGT => WYJDGT, 
 		CLCK => CLCK
    );
-
-
 END;

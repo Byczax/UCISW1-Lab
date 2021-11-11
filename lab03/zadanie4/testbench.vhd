@@ -22,7 +22,6 @@ ARCHITECTURE behavioral OF scheme_scheme_sch_tb IS
    SIGNAL ROWNE	:	STD_LOGIC;
 
 BEGIN
-
    UUT: scheme PORT MAP(
 		WEJA => WEJA, 
 		WEJB => WEJB, 
@@ -33,5 +32,4 @@ BEGIN
 
 	WEJA <= "0000", "0001" after 100 ns, "0010" after 200 ns, "0100" after 300 ns, "1101" after 400 ns, "1110" after 500 ns, "1111" after 600 ns;
 	WEJB <= "0000", "0000" after 100 ns, "0011" after 200 ns, "1011" after 300 ns, "0011" after 400 ns, "1110" after 500 ns, "1100" after 600 ns;
-
 END;

@@ -36,8 +36,6 @@ BEGIN
 		WYJ2 => WYJ2, 
 		WYJ3 => WYJ3
    );
-
 	WEJA <= "0000", "0010" after 100 ns, "0010" after 200 ns, "1011" after 300 ns, "0010" after 400 ns, "1011" after 500 ns, "1111" after 600 ns;
 	WEJB <= "0010", "0001" after 100 ns, "0100" after 200 ns, "0011" after 300 ns, "1101" after 400 ns, "1100" after 500 ns, "1111" after 600 ns;
-
 END;

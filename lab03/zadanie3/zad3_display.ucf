@@ -1,7 +1,5 @@
-#-----------------------------------------------------------
 # Clocks
 NET "CLCK" LOC = "P7" | BUFG = CLK | PERIOD = 5ms HIGH 50%;
-
 
 # Keys
 NET "WEJ(0)" LOC = "P42";

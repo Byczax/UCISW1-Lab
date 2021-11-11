@@ -1,16 +1,13 @@
 # Clocks
 NET "CLCK" LOC = "P7" | BUFG = CLK | PERIOD = 5ms HIGH 50%;
-
 NET "CLK" LOC = "P5" | BUFG = CLK | PERIOD = 500ns HIGH 50%;
 
 # Keys
 NET "RESET" LOC = "P42";
 NET "CLR" LOC = "P40";
 
-
 # LEDS
 NET "WYJ"  LOC = "P35";
 
 # RS-232
 NET "RS_RX" LOC = "P1";
-
