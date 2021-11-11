@@ -157,7 +157,7 @@ i generujący stosowny wynik w tymże kodzie.
 Najłatwiejszym sposobem na wykonanie dodawania dwóch liczb w kodzie Aikena okazała się zamiana danych wejściowych na NKB.
 Cyfry 0-4 pokrywają się w obu kodach, więc musieliśmy zamienić jedynie cyfry 5-9.
 Zauważyliśmy że aby sprawnie wykonać tą zmianę to musieliśmy odjąć wartość 0110 (6) aby uzyskać wymaganą wartość binarną.
-Operandy już skonwertowane na NKB dodajemy przy pomocy zwykłego sumatora. Otrzymany wynik ponownie konwertujemy na kod Aikena, wykrywając także, czy należy on do dziedziny tego kodu, i sygnalizując o wyjściem przepełnienia.
+Operandy już skonwertowane na NKB dodajemy przy pomocy zwykłego sumatora. Otrzymany wynik ponownie konwertujemy na kod Aikena, wykrywając także, czy należy on do dziedziny tego kodu, i sygnalizując to wyjściem przepełnienia.
 Potrzebne są zatem dwa typy podukładów: konwerter kodu Aikena na NKB, i konwerter odwrotny, z dodatkowym wyjściem przepełnienia. 
 
 Ustaliliśmy, że w momencie przepełnienia, czyli gdy wartość 9 zostanie przekroczona, zapala się lampka przepełnienia informująca, że wynik jest niewiarygodny (nieważny).
@@ -226,6 +226,8 @@ Ustaliliśmy, że w momencie przepełnienia, czyli gdy wartość 9 zostanie prze
 	}
 	%\label{tab:addlabel}%
   \end{table}%
+
+  Wejściem układu są bity S(4:0), stanowiące wyjście sumatora czterobitowego (S(3:0) - bity cyfr wyjściowych sumatora, $S_{4}$ - bit Carry Out tegoż). Można zauważyć, że bit przepełnienia jest jedynką wtedy i tylko wtedy, gdy ustawiony jest bit $S_4$ lub gdy bity S(3:0) tworzą liczbę większą od 9 (w NKB); dzięki temu spostrzeżeniu (bezpośrednio potem oddanego na schemacie), możliwe stało się zredukowanie liczby argumentów funkcji logicznej z pięciu do czterech. Pozostałe bity wyjściowe również są funkcjami czterech bitów S(3:0), co umożliwia skonstruowanie przejrzystych siatek Karnaugh.
 
 %\begin{table}[H]
 %    \centering
