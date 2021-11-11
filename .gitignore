@@ -274,3 +274,5 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+
+lab03/zadanie2/*.xlsx

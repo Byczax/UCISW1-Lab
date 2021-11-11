@@ -144,12 +144,11 @@ Aby moduł został poprawnie zaimplementowany musieliśmy go umieścić na schem
 	}
 \end{figure}
 \subsubsection{Kod VHDL}
-% TODO tutaj umieścić kod VHDL
-% \lstinputlisting{zadanie1/testbench.vhd}
+\lstinputlisting{zadanie1/testbench_keyboard.vhd}
 \subsubsection{Implementacja fizyczna}
 \lstinputlisting{zadanie1/zad1_keyboard_input.ucf}
 
-Zadanie zostało wykonane bez większych komplikacji, z powodu sposobu implementacji poprawną kombinację (A,S) musimy wpisać odpowiednio szybko oraz w tym samym tempie co zegar podłączony do przerzutnika.
+Zadanie zostało wykonane bez większych komplikacji, z powodu sposobu implementacji poprawną kombinację (a,s) musimy wpisać odpowiednio szybko oraz w tym samym tempie co zegar podłączony do przerzutnika.
 \section{Zadanie 2}
 \subsection{Polecenie}
 Układ arytmetyczny pracujący na dwóch argumentach 4-bitowych wyrażonych w kodzie Aikena
@@ -158,8 +157,10 @@ i generujący stosowny wynik w tymże kodzie.
 Najłatwiejszym sposobem na wykonanie dodawania dwóch liczb w kodzie Aikena okazała się zamiana danych wejściowych na NKB.
 Cyfry 0-4 pokrywają się w obu kodach, więc musieliśmy zamienić jedynie cyfry 5-9.
 Zauważyliśmy że aby sprawnie wykonać tą zmianę to musieliśmy odjąć wartość 0110 (6) aby uzyskać wymaganą wartość binarną.
+Operandy już skonwertowane na NKB dodajemy przy pomocy zwykłego sumatora. Otrzymany wynik ponownie konwertujemy na kod Aikena, wykrywając także, czy należy on do dziedziny tego kodu, i sygnalizując o wyjściem przepełnienia.
+Potrzebne są zatem dwa typy podukładów: konwerter kodu Aikena na NKB, i konwerter odwrotny, z dodatkowym wyjściem przepełnienia. 
 
-Ustaliliśmy że w momencie przepełnienia czyli gdy wartość 9 zostanie przekroczona to zapala się lampka przepełnienia informująca, że wynik jest niewiarygodny (nieważny).
+Ustaliliśmy, że w momencie przepełnienia, czyli gdy wartość 9 zostanie przekroczona, zapala się lampka przepełnienia informująca, że wynik jest niewiarygodny (nieważny).
 
 %\subsubsection{Schemat stanów} % pozwolę sobie zauważyć, że stanów, w układach kombinacyjnych, takim jak ten, nie ma
 %Dałbym bardziej cos w rodzaju notki wstępnej, np.
@@ -167,7 +168,312 @@ Ustaliliśmy że w momencie przepełnienia czyli gdy wartość 9 zostanie przekr
 % i tu opis ogólnej struktury układu
 
 \subsubsection{Tabele prawdy} %liczba mnoga; tabele dla każdego podukładu
+
+\begin{table}[H]
+	\centering
+	\caption{Konwerter kod Aikena - > NKB}
+	\resizebox*{\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c|c|c|c|c|}
+		\hline
+		$A_3$ & $A_2$ & $A_1$ & $A_0$ & $Y_3$ & $Y_2$ & $Y_1$ & $Y_0$ \\ \hlineB{2.5}
+		0    & 0    & 0    & 0    & 0    & 0    & 0    & 0    \\ \hline
+		0    & 0    & 0    & 1    & 0    & 0    & 0    & 1    \\ \hline
+		0    & 0    & 1    & 0    & 0    & 0    & 1    & 0    \\ \hline
+		0    & 0    & 1    & 1    & 0    & 0    & 1    & 1    \\ \hline
+		0    & 1    & 0    & 0    & 0    & 1    & 0    & 0    \\ \hline
+		0    & 1    & 0    & 1    & -    & -    & -    & -    \\ \hline
+		0    & 1    & 1    & 0    & -    & -    & -    & -    \\ \hline
+		0    & 1    & 1    & 1    & -    & -    & -    & -    \\ \hline
+		1    & 0    & 0    & 0    & -    & -    & -    & -    \\ \hline
+		1    & 0    & 0    & 1    & -    & -    & -    & -    \\ \hline
+		1    & 0    & 1    & 0    & -    & -    & -    & -    \\ \hline
+		1    & 0    & 1    & 1    & 0    & 1    & 0    & 1    \\ \hline
+		1    & 1    & 0    & 0    & 0    & 1    & 1    & 0    \\ \hline
+		1    & 1    & 0    & 1    & 0    & 1    & 1    & 1    \\ \hline
+		1    & 1    & 1    & 0    & 1    & 0    & 0    & 0    \\ \hline
+		1    & 1    & 1    & 1    & 1    & 0    & 0    & 1    \\ \hline
+		\end{tabular}
+	}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Konwerter NKB - > kod Aikena}
+	\resizebox*{\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		$S_4$ & $S_3$ & $S_2$ & $S_1$ & $S_0$ & $OVL$ & $Y_3$ & $Y_2$ & $Y_1$ & $Y_0$ \\ \hlineB{2.5}
+		0     & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 0 \\ \hline
+		0     & 0     & 0     & 0     & 1     & 0     & 0     & 0     & 0     & 1 \\ \hline
+		0     & 0     & 0     & 1     & 0     & 0     & 0     & 0     & 1     & 0 \\ \hline
+		0     & 0     & 0     & 1     & 1     & 0     & 0     & 0     & 1     & 1 \\ \hline
+		0     & 0     & 1     & 0     & 0     & 0     & 0     & 1     & 0     & 0 \\ \hline
+		0     & 0     & 1     & 0     & 1     & 0     & 1     & 0     & 1     & 1 \\ \hline
+		0     & 0     & 1     & 1     & 0     & 0     & 1     & 1     & 0     & 0 \\ \hline
+		0     & 0     & 1     & 1     & 1     & 0     & 1     & 1     & 0     & 1 \\ \hline
+		0     & 1     & 0     & 0     & 0     & 0     & 1     & 1     & 1     & 0 \\ \hline
+		0     & 1     & 0     & 0     & 1     & 0     & 1     & 1     & 1     & 1 \\ \hline
+		0     & 1     & 0     & 1     & 0     & 1     & -     & -     & -     & - \\ \hline
+		0     & 1     & 0     & 1     & 1     & 1     & -     & -     & -     & - \\ \hline
+		0     & 1     & 1     & 0     & 0     & 1     & -     & -     & -     & - \\ \hline
+		0     & 1     & 1     & 0     & 1     & 1     & -     & -     & -     & - \\ \hline
+		0     & 1     & 1     & 1     & 0     & 1     & -     & -     & -     & - \\ \hline
+		0     & 1     & 1     & 1     & 1     & 1     & -     & -     & -     & - \\ \hline
+		1     & 0     & 0     & 0     & 0     & 1     & -     & -     & -     & - \\ \hline
+		1     & 0     & 0     & 0     & 1     & 1     & -     & -     & -     & - \\ \hline
+		1     & 0     & 0     & 1     & 0     & 1     & -     & -     & -     & - \\ \hline
+		\end{tabular}%
+	}
+	%\label{tab:addlabel}%
+  \end{table}%
+
+%\begin{table}[H]
+%    \centering
+%    \caption{Konwerter kod Aikena -> NKB}
+%    \resizebox*{\textwidth}{!}{
+%      \begin{tabular}{|c?c|c|c?c?c|c|c?c?c|c|c|}
+%      \hline
+%      \multirow{2}[4]{*}{S} & \multicolumn{3}{c?}{Q(t)} & \multirow{2}[4]{*}{Z} & \multicolumn{3}{c?}{Q(t+1)} & \multirow{2}[4]{*}{Y} & \multicolumn{3}{c|}{T(t)} \bigstrut\\
+%  	  \clineB{2-4}{2.5}\clineB{6-8}{2.5}\clineB{10-12}{2.5}      & $Q_2$ & $Q_1$ & $Q_0$ &   & $Q_2$ & $Q_1$ & $Q_0$ &   & $T_2$ & $T_1$ & $T_0$ \bigstrut\\
+%	  \hlineB{2.5}
+%      $Q_0$ & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \bigstrut\\
+%      \hline
+%      $Q_0$ & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 1 \bigstrut\\
+%      \hline
+%      $Q_1$ & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \bigstrut\\
+%      \hline
+%      $Q_1$ & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 1 & 1 \bigstrut\\
+%      \hline
+%      $Q_2$ & 0 & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 1 \bigstrut\\
+%      \hline
+%      $Q_2$ & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \bigstrut\\
+%      \hline
+%      $Q_3$ & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 \bigstrut\\
+%      \hline
+%      $Q_3$ & 0 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 \bigstrut\\
+%      \hline
+%      $Q_4$ & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \bigstrut\\
+%      \hline
+%      $Q_4$ & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 1 \bigstrut\\
+%      \hline
+%      $Q_5$ & 1 & 0 & 1 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 0 \bigstrut\\
+%      \hline
+%      $Q_5$ & 1 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 \bigstrut\\
+%      \hline
+%      - & 1 & 1 & 0 & 0 & - & - & - & - & - & - & - \bigstrut\\
+%      \hline
+%      - & 1 & 1 & 0 & 1 & - & - & - & - & - & - & - \bigstrut\\
+%      \hline
+%      - & 1 & 1 & 1 & 0 & - & - & - & - & - & - & - \bigstrut\\
+%      \hline
+%      - & 1 & 1 & 1 & 1 & - & - & - & - & - & - & - \bigstrut\\
+%      \hline
+%      \end{tabular}%
+%    }
+%    \label{tab:mealy}%
+%  \end{table}
+
+\newpage
+
 \subsubsection{Siatki Karnaugh}
+	Konwerter kod Aikena - > NKB:
+	\begin{figure}[H]
+    \centering
+    \begin{minipage}[c]{0.49\linewidth}
+    \begin{karnaugh-map}[4][4][1][$A_1A_0$][$A_3A_2$]
+    \minterms{14,15}
+    \maxterms{0,1,2,3,4,11,12,13}
+    \autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+    \implicant{7}{14}
+    %\implicantedge{12}{8}{14}{10}
+    %\implicant{15}{10}
+    % \minterms{0} % na tych koordynatach umieść jedynki (1)
+    % \maxterms{1,2,3,4}
+    % \implicantedge{0}{0}{8}{8}
+    \end{karnaugh-map}
+    \centering
+    \vspace{-1cm}
+    \hspace{1cm}
+    \caption*{$Y_3 = A_2A_1$}
+    \end{minipage}
+    \centering
+    \begin{minipage}[c]{0.49\linewidth}
+	\begin{karnaugh-map}[4][4][1][$A_1A_0$][$A_3A_2$]
+    \minterms{4,11,12,13}
+    \maxterms{0,1,2,3,14,15}
+    \autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+    \implicant{4}{13}
+    \implicant{8}{10}
+    %\implicant{15}{10}
+    % \minterms{0,11} % na tych koordynatach umieść jedynki (1)
+    % \maxterms{1,2,3}
+    % \implicant{0}{8}
+    % \implicant{12}{10}
+    \end{karnaugh-map}
+    \centering
+    \vspace{-1cm}
+    \hspace{1cm}
+    \caption*{$Y_2 = A_3\ov{A_2} + A_2\ov{A_1}$}
+    \end{minipage}
+    \end{figure}
+	\vspace{-1cm}
+	\begin{figure}[H]
+		\centering
+		\begin{minipage}[c]{0.49\linewidth}
+		\begin{karnaugh-map}[4][4][1][$A_1A_0$][$A_3A_2$]
+		\minterms{2,3,12,13}
+		\maxterms{0,1,4,11,14,15}
+		\autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+		\implicant{3}{6}
+		%\implicantedge{12}{8}{14}{10}
+		\implicant{12}{9}
+		% \minterms{0} % na tych koordynatach umieść jedynki (1)
+		% \maxterms{1,2,3,4}
+		% \implicantedge{0}{0}{8}{8}
+		\end{karnaugh-map}
+		\centering
+		\vspace{-1cm}
+		\hspace{1cm}
+		\caption*{$Y_1 = A_3 \oplus A_1$}
+		\end{minipage}
+		\centering
+		\begin{minipage}[c]{0.49\linewidth}
+		\begin{karnaugh-map}[4][4][1][$A_1A_0$][$A_3A_2$]
+		\minterms{1,3,11,13,15}
+		\maxterms{0,2,4,12,14}
+		\autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+		\implicant{1}{11}
+		%\implicant{7}{14}
+		%\implicant{15}{10}
+		% \minterms{0,11} % na tych koordynatach umieść jedynki (1)
+		% \maxterms{1,2,3}
+		% \implicant{0}{8}
+		% \implicant{12}{10}
+		\end{karnaugh-map}
+		\centering
+		\vspace{-1cm}
+		\hspace{1cm}
+		\caption*{$Y_0 = A_0$}
+		\end{minipage}
+		\end{figure}
+
+		Konwerter NKB - > kod Aikena:
+
+		\begin{figure}[H]
+			\centering
+			\begin{minipage}[c]{0.49\linewidth}
+			\begin{karnaugh-map}[4][4][1][$S_1S_0$][$S_3S_2$]
+			\minterms{10,11,12,13,14,15}
+			\maxterms{0,1,2,3,4,5,6,7,8,9}
+			\autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+			\implicant{12}{14}
+			%\implicantedge{12}{8}{14}{10}
+			\implicant{15}{10}
+			% \minterms{0} % na tych koordynatach umieść jedynki (1)
+			% \maxterms{1,2,3,4}
+			% \implicantedge{0}{0}{8}{8}
+			\end{karnaugh-map}
+			\centering
+			\vspace{-1cm}
+			\hspace{1cm}
+			\caption*{$OVL = S_3S_2 + S_3S_1 =S_3(S_2+S_1)$}
+			\end{minipage}
+		\end{figure}
+
+		\vspace{-1cm}
+
+		\begin{figure}[H]
+			\centering
+			\begin{minipage}[c]{0.49\linewidth}
+			\begin{karnaugh-map}[4][4][1][$S_1S_0$][$S_3S_2$]
+			\minterms{5,6,7,8,9}
+			\maxterms{0,1,2,3,4}
+			\autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+			\implicant{12}{10}
+			\implicant{5}{15}
+			\implicant{7}{14}
+			
+			%\implicantedge{12}{8}{14}{10}
+			%\implicant{15}{10}
+			% \minterms{0} % na tych koordynatach umieść jedynki (1)
+			% \maxterms{1,2,3,4}
+			% \implicantedge{0}{0}{8}{8}
+			\end{karnaugh-map}
+			\centering
+			\vspace{-1cm}
+			\hspace{1cm}
+			\caption*{$R_3 = S_3+S_2S_1+S_2S_0$}
+			\end{minipage}
+			\centering
+			\begin{minipage}[c]{0.49\linewidth}
+			\begin{karnaugh-map}[4][4][1][$S_1S_0$][$S_3S_2$]
+			\minterms{4,6,7,8,9}
+			\maxterms{0,1,2,3,5}
+			\autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+			\implicant{12}{10}
+			\implicant{7}{14}
+			\implicantedge{4}{12}{6}{14}
+			%\implicant{8}{10}
+			%\implicant{15}{10}
+			% \minterms{0,11} % na tych koordynatach umieść jedynki (1)
+			% \maxterms{1,2,3}
+			% \implicant{0}{8}
+			% \implicant{12}{10}
+			\end{karnaugh-map}
+			\centering
+			\vspace{-1cm}
+			\hspace{1cm}
+			\caption*{$R_2 = S_3+S_2S_1+S_2\ov{S_0}$}
+			\end{minipage}
+			\end{figure}
+
+			\vspace{-1cm}
+
+			\begin{figure}[H]
+				\centering
+				\begin{minipage}[c]{0.49\linewidth}
+				\begin{karnaugh-map}[4][4][1][$S_1S_0$][$S_3S_2$]
+				\minterms{2,3,5,8,9}
+				\maxterms{0,1,4,6,7}
+				\autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+				%\implicant{3}{6}
+				%\implicantedge{12}{8}{14}{10}
+				\implicantedge{3}{2}{11}{10}
+				\implicant{12}{10}
+				\implicant{5}{13}
+				% \minterms{0} % na tych koordynatach umieść jedynki (1)
+				% \maxterms{1,2,3,4}
+				% \implicantedge{0}{0}{8}{8}
+				\end{karnaugh-map}
+				\centering
+				\vspace{-1cm}
+				\hspace{1cm}
+				\caption*{$R_1 = S_3+\ov{S_2}S_1+S_2\ov{S_1}S_0$}
+				\end{minipage}
+				\centering
+				\begin{minipage}[c]{0.49\linewidth}
+				\begin{karnaugh-map}[4][4][1][$S_1S_0$][$S_3S_2$]
+				\minterms{1,3,5,7,9}
+				\maxterms{0,2,4,6,8}
+				\autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+				\implicant{1}{11}
+				%\implicant{7}{14}
+				%\implicant{15}{10}
+				% \minterms{0,11} % na tych koordynatach umieść jedynki (1)
+				% \maxterms{1,2,3}
+				% \implicant{0}{8}
+				% \implicant{12}{10}
+				\end{karnaugh-map}
+				\centering
+				\vspace{-1cm}
+				\hspace{1cm}
+				\caption*{$R_0 = S_0$}
+				\end{minipage}
+				\end{figure}
+
+				
+
+
 \subsubsection{Schemat układu}
 \begin{figure}[H]
 	\centering
@@ -200,8 +506,57 @@ W przeciwnym razie należy dodać 55.
 Schemat działa na podobnej zasadzie co sumator z zadania 2 - wynik konwersji jest podawany na poszczególne bity sumatora, tak aby utworzył on potrzebną wartość.
 Do tego zadania wykorzystaliśmy 2 sumatory 4-bitowe.
 % \subsubsection{Schemat stanów} 
-% \subsubsection{Tabela prawdy}
-% \subsubsection{Siatki Karnaugh}
+\subsubsection{Tabela prawdy}
+
+\begin{table}[H]
+	\centering
+	\resizebox*{12cm}{!}{
+		\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		$H_3$ & $H_2$ & $H_1$ & $H_0$ & $Y$ \\ \hlineB{2.5}
+		0             & 0             & 0             & 0             & 0          \\ \hline
+		0             & 0             & 0             & 1             & 0          \\ \hline
+		0             & 0             & 1             & 0             & 0          \\ \hline
+		0             & 0             & 1             & 1             & 0          \\ \hline
+		0             & 1             & 0             & 0             & 0          \\ \hline
+		0             & 1             & 0             & 1             & 0          \\ \hline
+		0             & 1             & 1             & 0             & 0          \\ \hline
+		0             & 1             & 1             & 1             & 0          \\ \hline
+		1             & 0             & 0             & 0             & 0          \\ \hline
+		1             & 0             & 0             & 1             & 0          \\ \hline
+		1             & 0             & 1             & 0             & 1          \\ \hline
+		1             & 0             & 1             & 1             & 1          \\ \hline
+		1             & 1             & 0             & 0             & 1          \\ \hline
+		1             & 1             & 0             & 1             & 1          \\ \hline
+		1             & 1             & 1             & 0             & 1          \\ \hline
+		1             & 1             & 1             & 1             & 1          \\ \hline
+		\end{tabular}
+	}
+	\end{table}
+
+\subsubsection{Siatka Karnaugh}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}[c]{0.49\linewidth}
+	\begin{karnaugh-map}[4][4][1][$H_1H_0$][$H_3H_2$]
+	\minterms{10,11,12,13,14,15}
+	\maxterms{0,1,2,3,4,5,6,7,8,9}
+	\autoterms[-] % umieść ten symbol w miejscach niezdefiniowanych
+	\implicant{12}{14}
+	%\implicantedge{12}{8}{14}{10}
+	\implicant{15}{10}
+	% \minterms{0} % na tych koordynatach umieść jedynki (1)
+	% \maxterms{1,2,3,4}
+	% \implicantedge{0}{0}{8}{8}
+	\end{karnaugh-map}
+	\centering
+	\vspace{-1cm}
+	\hspace{1cm}
+	\caption*{$Y = H_3H_2 + H_3H_1 = H_3(H_2+H_1)$}
+	\end{minipage}
+\end{figure}
+
 \subsubsection{Schemat układu}
 \begin{figure}[H]
 	\centering
@@ -234,8 +589,7 @@ Moduł też wymaga od nas podłączenia do zegara wysokiej częstotliwości aby 
 	}
 \end{figure}
 \subsubsection{Kod VHDL}
-% TODO tutaj umieścić kod VHDL
-% \lstinputlisting{zadanie3/testbench.vhd}
+\lstinputlisting{zadanie3/testbench_display.vhd}
 \subsubsection{Implementacja fizyczna (Kod UCF)}
 \lstinputlisting{zadanie3/zad3_display.ucf}
 
@@ -280,6 +634,6 @@ Przy wykonywaniu zadań niezbędne okazały się inteligentne i proste rozwiąza
 
 Małą trudność sprawiły nam moduły implementujące działanie wyświetlacza LCD oraz wprowadzanie wejścia za pomocą klawiatury przez terminal, lecz po przeczytaniu instrukcji i wykonaniu opisanych kroków dobrnęliśmy do rozwiązania problemu.
 
-Najtrudniejszym zadaniem okazało się zadanie 4 gdyż wymagało to od nas dokonania kilku założeń ze względu na specyfikację kodu:
-Ignorowanie wyjścia gdy będzie przepełnienie oraz odejmowanie wartości 6 gdy zakres przekroczy wartość 4.
+Najtrudniejszym zadaniem okazało się zadanie 2 gdyż wymagało to od nas dokonania kilku założeń ze względu na specyfikację kodu:
+Ignorowanie wyjścia gdy będzie przepełnienie oraz odejmowanie/dodawanie wartości 6 gdy zakres przekroczy wartość 4.
 \end{document}

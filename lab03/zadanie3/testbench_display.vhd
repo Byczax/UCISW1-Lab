@@ -1,0 +1,32 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+LIBRARY UNISIM;
+USE UNISIM.Vcomponents.ALL;
+ENTITY scheme_scheme_sch_tb IS
+END scheme_scheme_sch_tb;
+ARCHITECTURE behavioral OF scheme_scheme_sch_tb IS 
+
+   COMPONENT scheme
+   PORT( WEJ	:	IN	STD_LOGIC_VECTOR (3 DOWNTO 0); 
+          WYJSW	:	OUT	STD_LOGIC_VECTOR (3 DOWNTO 0); 
+          WYJDGT	:	OUT	STD_LOGIC_VECTOR (7 DOWNTO 0); 
+          CLCK	:	IN	STD_LOGIC);
+   END COMPONENT;
+
+   SIGNAL WEJ	:	STD_LOGIC_VECTOR (3 DOWNTO 0);
+   SIGNAL WYJSW	:	STD_LOGIC_VECTOR (3 DOWNTO 0);
+   SIGNAL WYJDGT	:	STD_LOGIC_VECTOR (7 DOWNTO 0);
+   SIGNAL CLCK	:	STD_LOGIC;
+
+BEGIN
+
+   UUT: scheme PORT MAP(
+		WEJ => WEJ, 
+		WYJSW => WYJSW, 
+		WYJDGT => WYJDGT, 
+		CLCK => CLCK
+   );
+
+
+END;
