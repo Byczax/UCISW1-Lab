@@ -135,7 +135,9 @@ Schemat dla wersji z przyciskami jako wejściem:
 \subsection{Implementacja klawiatury}
 Aby wykorzystać klawiaturę komputera jako źródło danych via terminal to musieliśmy zaimportować moduł RS232\_RX ze strony laboratorium.
 
-Aby moduł został poprawnie zaimplementowany musieliśmy go umieścić na schemacie, wczytać nowe wejścia do pliku VHDL oraz przypisać te wejścia do odpowiednich elementów zestawu fizycznego.
+Aby moduł został poprawnie zaimplementowany musieliśmy go umieścić na schemacie, 
+wczytać nowe wejścia do pliku VHDL oraz przypisać te wejścia do 
+odpowiednich elementów zestawu fizycznego za pomocą pliku UCF.
 \subsubsection{Schemat układu}
 \begin{figure}[H]
 	\centering
@@ -145,7 +147,7 @@ Aby moduł został poprawnie zaimplementowany musieliśmy go umieścić na schem
 \end{figure}
 \subsubsection{Kod VHDL}
 \lstinputlisting{zadanie1/testbench_keyboard.vhd}
-\subsubsection{Implementacja fizyczna}
+\subsubsection{Kod UCF}
 \lstinputlisting{zadanie1/zad1_keyboard_input.ucf}
 
 Zadanie zostało wykonane bez większych komplikacji, z powodu sposobu implementacji poprawną kombinację (a,s) musimy wpisać odpowiednio szybko oraz w tym samym tempie co zegar podłączony do przerzutnika.
@@ -172,8 +174,8 @@ Ustaliliśmy, że w momencie przepełnienia, czyli gdy wartość 9 zostanie prze
 \begin{table}[H]
 	\centering
 	\caption{Konwerter kod Aikena - > NKB}
-	\resizebox*{\textwidth}{!}{
-		\begin{tabular}{|c|c|c|c|c|c|c|c|}
+	\resizebox*{0.8\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c?c|c|c|c|}
 		\hline
 		$A_3$ & $A_2$ & $A_1$ & $A_0$ & $Y_3$ & $Y_2$ & $Y_1$ & $Y_0$ \\ \hlineB{2.5}
 		0    & 0    & 0    & 0    & 0    & 0    & 0    & 0    \\ \hline
@@ -199,8 +201,8 @@ Ustaliliśmy, że w momencie przepełnienia, czyli gdy wartość 9 zostanie prze
 \begin{table}[H]
 	\centering
 	\caption{Konwerter NKB - > kod Aikena}
-	\resizebox*{\textwidth}{!}{
-		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+	\resizebox*{0.8\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c|c?c?c|c|c|c|}
 		\hline
 		$S_4$ & $S_3$ & $S_2$ & $S_1$ & $S_0$ & $OVL$ & $Y_3$ & $Y_2$ & $Y_1$ & $Y_0$ \\ \hlineB{2.5}
 		0     & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 0 \\ \hline
@@ -359,7 +361,9 @@ Ustaliliśmy, że w momencie przepełnienia, czyli gdy wartość 9 zostanie prze
 		\end{minipage}
 		\end{figure}
 
-		Konwerter NKB - > kod Aikena:
+		\begin{center}
+			Konwerter NKB - > kod Aikena:
+		\end{center}
 
 		\begin{figure}[H]
 			\centering
@@ -512,8 +516,8 @@ Do tego zadania wykorzystaliśmy 2 sumatory 4-bitowe.
 
 \begin{table}[H]
 	\centering
-	\resizebox*{12cm}{!}{
-		\begin{tabular}{|c|c|c|c|c|}
+	\resizebox*{0.5\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c?c|}
 		\hline
 		$H_3$ & $H_2$ & $H_1$ & $H_0$ & $Y$ \\ \hlineB{2.5}
 		0             & 0             & 0             & 0             & 0          \\ \hline
@@ -579,7 +583,7 @@ Do tego zadania wykorzystaliśmy 2 sumatory 4-bitowe.
 \subsubsection{Kod UCF}
 \lstinputlisting{zadanie3/zad3_diodes.ucf}
 \subsection{Implementacja wyświetlacz}
-Aby wykorzystać wyświetlacz jako wyświetlenie wyniku to musieliśmy zaimportować moduł Display4x7S ze strony laboratorium.
+Aby wykorzystać wyświetlacz do zaprezentowania wynikowego kodu dziesiętnego ASCII to musieliśmy zaimportować moduł Display4x7S ze strony laboratorium.
 
 Aby moduł został poprawnie zaimplementowany musieliśmy go umieścić na schemacie, wczytać nowe wejścia do pliku VHDL oraz przypisać te wejścia do odpowiednich elementów zestawu fizycznego.
 Moduł też wymaga od nas podłączenia do zegara wysokiej częstotliwości aby poprawnie wyświetlał wartości na ekranie zestawu.
@@ -592,7 +596,7 @@ Moduł też wymaga od nas podłączenia do zegara wysokiej częstotliwości aby 
 \end{figure}
 \subsubsection{Kod VHDL}
 \lstinputlisting{zadanie3/testbench_display.vhd}
-\subsubsection{Implementacja fizyczna (Kod UCF)}
+\subsubsection{Kod UCF}
 \lstinputlisting{zadanie3/zad3_display.ucf}
 
 Na początku mieliśmy zagwozdkę co mamy zrobić z bitami wejściowymi których jest 16 a my generujemy tylko 8. Uporaliśmy się z problemem poprzez wypełnienie pozostałych bitów zerami.
@@ -604,7 +608,7 @@ Komparator dwóch 4-bitowych cyfr: 2 wejścia po 4 bity, 3 wyjścia 1-bitowe:
 mniejszy, większy, równy pracujący w kodzie Aikena.
 \subsection{Rozwiązanie}
 Na początku zadania zauważyliśmy że porównywanie wartości w kodzie Aikena wygląda identycznie jak w kodzie NKB.
-Dzięki czemu udało nam się skonstruować łatwy schemat wraz z 3 wyjściami.
+Dzięki czemu udało nam się skonstruować nieskomplikowany schemat wraz z 3 wyjściami.
 Do wykonania zadania wykorzystaliśmy wbudowany komparator w środowisku.
 % \subsubsection{Schemat stanów}
 % \subsubsection{Tabela prawdy}
