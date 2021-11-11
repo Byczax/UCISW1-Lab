@@ -109,20 +109,17 @@ początkowo "guziki" przystawki, potem klawiatura PC via terminal.
 \subsection{Rozwiązanie}
 Do rozwiązania problemu wymagane jest od nas podłączenie dwóch komparatorów 8-bitowych (COMP8), 
 które po pobraniu wartości od użytkownika kolejno po sobie sprawdzają wprowadzone słowa.
-W zależności od wymagania można wprowadzić także obowiązkowe wprowadzanie wartości w odpowiedniej kolejności.
-\subsubsection{Schemat stanów}
-% \subsubsection{Tabela prawdy}
-% \subsubsection{Siatki Karnaugh}
-\subsubsection{Schematy układu} %myślę, że tu damy oba schematy: bez i z obsługą klawiatury, na razie daję ten pierwszy
-Schemat dla wersji z przyciskami jako inputem:
+
+Aby wymusić na użytkowniku wprowadzanie odpowiedniej kolejności wpisywania wartości zastosowaliśmy przerzutnik typu "D" aby wytworzyć opóźnienie.
+
+\subsubsection{Schemat układu}
+Schemat dla wersji z przyciskami jako wejściem:
 \begin{figure}[H]
 	\centering
 	\resizebox*{\textwidth}{!}{
 		\includegraphics{zadanie1/zad1_scheme_button_input.png}
 	}
 \end{figure}
-Schemat wersji wykorzystującej klawiaturę jako wejście:
-% na morzu hula hulami, wieje wieje wiatr
 \subsubsection{Kod VHDL}
 \lstinputlisting{zadanie1/testbench.vhd}
 \subsubsection{Symulacja}
@@ -134,18 +131,39 @@ Schemat wersji wykorzystującej klawiaturę jako wejście:
 \end{figure}
 \subsection{Fizyczna implementacja}
 \subsubsection{Kod UCF}
-Kod dla wersji z przyciskami jako inputem:
-\lstinputlisting{zadanie1/ZL-9572.ucf}
-Schemat wersji wykorzystującej klawiaturę jako wejście:
-% na morzu hula hulami, wieje wieje wiatr
+\lstinputlisting{zadanie1/zad1_button_input.ucf}
+\subsection{Implementacja klawiatury}
+Aby wykorzystać klawiaturę komputera jako źródło danych via terminal to musieliśmy zaimportować moduł RS232\_RX ze strony laboratorium.
+
+Aby moduł został poprawnie zaimplementowany musieliśmy go umieścić na schemacie, wczytać nowe wejścia do pliku VHDL oraz przypisać te wejścia do odpowiednich elementów zestawu fizycznego.
+\subsubsection{Schemat układu}
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie1/zad1_scheme_keyboard_input.png}
+	}
+\end{figure}
+\subsubsection{Kod VHDL}
+% TODO tutaj umieścić kod VHDL
+% \lstinputlisting{zadanie1/testbench.vhd}
+\subsubsection{Implementacja fizyczna}
+\lstinputlisting{zadanie1/zad1_keyboard_input.ucf}
+
+Zadanie zostało wykonane bez większych komplikacji, z powodu sposobu implementacji poprawną kombinację (A,S) musimy wpisać odpowiednio szybko oraz w tym samym tempie co zegar podłączony do przerzutnika.
 \section{Zadanie 2}
 \subsection{Polecenie}
 Układ arytmetyczny pracujący na dwóch argumentach 4-bitowych wyrażonych w kodzie Aikena
 i generujący stosowny wynik w tymże kodzie. 
 \subsection{Rozwiązanie}
+Najłatwiejszym sposobem na wykonanie dodawania dwóch liczb w kodzie Aikena okazała się zamiana danych wejściowych na NKB.
+Cyfry 0-4 pokrywają się w obu kodach, więc musieliśmy zamienić jedynie cyfry 5-9.
+Zauważyliśmy że aby sprawnie wykonać tą zmianę to musieliśmy odjąć wartość 0110 (6) aby uzyskać wymaganą wartość binarną.
+
+Ustaliliśmy że w momencie przepełnienia czyli gdy wartość 9 zostanie przekroczona to zapala się lampka przepełnienia informująca, że wynik jest niewiarygodny (nieważny).
+
 %\subsubsection{Schemat stanów} % pozwolę sobie zauważyć, że stanów, w układach kombinacyjnych, takim jak ten, nie ma
 %Dałbym bardziej cos w rodzaju notki wstępnej, np.
-\subsection{Uwagi wstępne}
+% \subsection{Uwagi wstępne}
 % i tu opis ogólnej struktury układu
 
 \subsubsection{Tabele prawdy} %liczba mnoga; tabele dla każdego podukładu
@@ -169,34 +187,99 @@ i generujący stosowny wynik w tymże kodzie.
 \subsection{Fizyczna implementacja}
 \subsubsection{Kod UCF}
 \lstinputlisting{zadanie2/ZL-9572.ucf}
+
+W tej implementacji dodawanie następowało w czasie rzeczywistym, panel przycisków został podzielony na 2 sekcje dzięki czemu mogliśmy bezproblemowo wprowadzać 4-bitowe wartości.
 \section{Zadanie 3}
 \subsection{Polecenie}
 Konwerter cyfry szesnastkowej zapisanej na czterech bitach od 0 do 9, A do F 
 na kod ASCII tej cyfry – wyjście 8-bitowe. Prezentacja wyniku na diodach 
 przystawki, potem na wyświetlaczu 7-segmentowym. 
 \subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
-\subsubsection{Tabela prawdy}
-\subsubsection{Siatki Karnaugh}
+W celu dokonania konwersji, układ sprawdza czy prowadzona cyfra posiada wartość mniejszą niż 10. W celu uzyskania kodu ASCII w takim wypadku należy dodać 48 do wprowadzonej wartości.
+W przeciwnym razie należy dodać 55.
+Schemat działa na podobnej zasadzie co sumator z zadania 2 - wynik konwersji jest podawany na poszczególne bity sumatora, tak aby utworzył on potrzebną wartość.
+Do tego zadania wykorzystaliśmy 2 sumatory 4-bitowe.
+% \subsubsection{Schemat stanów} 
+% \subsubsection{Tabela prawdy}
+% \subsubsection{Siatki Karnaugh}
 \subsubsection{Schemat układu}
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie3/zad3_scheme_diodes.png}
+	}
+\end{figure}
 \subsubsection{Kod VHDL}
+\lstinputlisting{zadanie3/testbench.vhd}
 \subsubsection{Symulacja}
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie3/zad3_simulation.png}
+	}
+\end{figure}
 \subsection{Fizyczna implementacja}
 \subsubsection{Kod UCF}
+\lstinputlisting{zadanie3/zad3_diodes.ucf}
+\subsection{Implementacja wyświetlacz}
+Aby wykorzystać wyświetlacz jako wyświetlenie wyniku to musieliśmy zaimportować moduł Display4x7S ze strony laboratorium.
 
+Aby moduł został poprawnie zaimplementowany musieliśmy go umieścić na schemacie, wczytać nowe wejścia do pliku VHDL oraz przypisać te wejścia do odpowiednich elementów zestawu fizycznego.
+Moduł też wymaga od nas podłączenia do zegara wysokiej częstotliwości aby poprawnie wyświetlał wartości na ekranie zestawu.
+\subsubsection{Schemat układu}
+\begin{figure}[H]
+	\centering
+	\resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie3/zad3_scheme_display.png}
+	}
+\end{figure}
+\subsubsection{Kod VHDL}
+% TODO tutaj umieścić kod VHDL
+% \lstinputlisting{zadanie3/testbench.vhd}
+\subsubsection{Implementacja fizyczna (Kod UCF)}
+\lstinputlisting{zadanie3/zad3_display.ucf}
+
+Na początku mieliśmy zagwozdkę co mamy zrobić z bitami wejściowymi których jest 16 a my generujemy tylko 8. Uporaliśmy się z problemem poprzez wypełnienie pozostałych bitów zerami.
+
+Efekt wyświetlenia wartości dziesiętnej kodu ASCII na ekranie zestawu był bardzo satysfakcjonujący.
 \section{Zadanie 4}
 \subsection{Polecenie}
 Komparator dwóch 4-bitowych cyfr: 2 wejścia po 4 bity, 3 wyjścia 1-bitowe: 
 mniejszy, większy, równy pracujący w kodzie Aikena.
 \subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
-\subsubsection{Tabela prawdy}
-\subsubsection{Siatki Karnaugh}
+Na początku zadania zauważyliśmy że porównywanie wartości w kodzie Aikena wygląda identycznie jak w kodzie NKB.
+Dzięki czemu udało nam się skonstruować łatwy schemat wraz z 3 wyjściami.
+Do wykonania zadania wykorzystaliśmy wbudowany komparator w środowisku.
+% \subsubsection{Schemat stanów}
+% \subsubsection{Tabela prawdy}
+% \subsubsection{Siatki Karnaugh}
 \subsubsection{Schemat układu}
+\begin{figure}[H]
+   \centering
+   \resizebox*{\textwidth}{!}{
+	  \includegraphics{zadanie4/zad4_scheme.png}
+   }
+\end{figure}
 \subsubsection{Kod VHDL}
+\lstinputlisting{zadanie4/testbench.vhd}
 \subsubsection{Symulacja}
+\begin{figure}[H]
+   \centering
+   \resizebox*{\textwidth}{!}{
+	  \includegraphics{zadanie4/zad4_simulation.png}
+   }
+\end{figure}
 \subsection{Fizyczna implementacja}
 \subsubsection{Kod UCF}
+\lstinputlisting{zadanie4/ZL-9572.ucf}
 
+Panel przycisków podzieliliśmy na 2 części tak samo jak w zadaniu nr. 2 aby móc bezproblemowo wprowadzać wartości.
+Gdy wartość w lewej sekcji była mniejsza niż prawa, zapalała się prawa dioda sygnalizująca, że wartość po prawej stronie jest większa i vice versa, gdy wartości były równe to świeciła się dioda środkowa informująca o równości wartości.
 \section{Wnioski}
+Przy wykonywaniu zadań niezbędne okazały się inteligentne i proste rozwiązania problemów jak zauważenie w zadaniu 4, że porównywanie w kodzie Aikena jest identyczne z kodem KNB.
+
+Małą trudność sprawiły nam moduły implementujące działanie wyświetlacza LCD oraz wprowadzanie wejścia za pomocą klawiatury przez terminal, lecz po przeczytaniu instrukcji i wykonaniu opisanych kroków dobrnęliśmy do rozwiązania problemu.
+
+Najtrudniejszym zadaniem okazało się zadanie 4 gdyż wymagało to od nas dokonania kilku założeń ze względu na specyfikację kodu:
+Ignorowanie wyjścia gdy będzie przepełnienie oraz odejmowanie wartości 6 gdy zakres przekroczy wartość 4.
 \end{document}
