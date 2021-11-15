@@ -71,9 +71,9 @@ keywordstyle=\color{ZeroBlue},
 %----------------------------------------------------------------------
 
 %-----------------------SEKCJA DANYCH----------------------------------
-\def\tytul{} %<<< tytuł ćwiczenia
-\def\nrcw{} %<<< numer ćwiczenia
-\def\data{} %<< data wykonania
+\def\tytul{Układy Kombinacyjne i Sekwencyjne w VHDL-u} %<<< tytuł ćwiczenia
+\def\nrcw{5} %<<< numer ćwiczenia
+\def\data{6 Grudnia 2021r.} %<< data wykonania
 \def\prowadzacy{dr inż. Jacek Mazurkiewicz} %<<<prowadzący
 \def\nrgrupy{B} %<<<numer grupy
 \def\tworcy{Maciej Byczko\\Bartosz Matysiak} %<<< autorzy
@@ -103,10 +103,53 @@ keywordstyle=\color{ZeroBlue},
 \cleardoublepage
 \section{Zadanie 1}
 \subsection{Polecenie}
+Implementacja funkcji logicznej \textbf{$G(w,x,y,z) = \prod(0, 2, 3, 4, 6, 7, 9, 11, 12, 13, 15)$} w VHDL-u za pomocą:
+\begin{enumerate}
+	\item Zapis równań boolowskich
+	\item Metoda zapisu tablicowego
+\end{enumerate}
 \subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
+% \subsubsection{Schemat stanów}
 \subsubsection{Tabela prawdy}
-\subsubsection{Siatki Karnaugh}
+\begin{table}[H]
+	\centering
+	\resizebox{0.5\textwidth}{!}{
+		\begin{tabular}{?c?c|c|c|c?c?}\hlineB{2.5}
+			Kod dziesiętny & w & x & y & z & G \bigstrut \\\hlineB{2.5}
+			0              & 0 & 0 & 0 & 0 & 0 \bigstrut \\\hline
+			1              & 0 & 0 & 0 & 1 & 1 \bigstrut \\\hline
+			2              & 0 & 0 & 1 & 0 & 0 \bigstrut \\\hline
+			3              & 0 & 0 & 1 & 1 & 0 \bigstrut \\\hline
+			4              & 0 & 1 & 0 & 0 & 0 \bigstrut \\\hline
+			5              & 0 & 1 & 0 & 1 & 1 \bigstrut \\\hline
+			6              & 0 & 1 & 1 & 0 & 0 \bigstrut \\\hline
+			7              & 0 & 1 & 1 & 1 & 0 \bigstrut \\\hline
+			8              & 1 & 0 & 0 & 0 & 1 \bigstrut \\\hline
+			9              & 1 & 0 & 0 & 1 & 0 \bigstrut \\\hline
+			10             & 1 & 0 & 1 & 0 & 1 \bigstrut \\\hline
+			11             & 1 & 0 & 1 & 1 & 0 \bigstrut \\\hline
+			12             & 1 & 1 & 0 & 0 & 0 \bigstrut \\\hline
+			13             & 1 & 1 & 0 & 1 & 0 \bigstrut \\\hline
+			14             & 1 & 1 & 1 & 0 & 1 \bigstrut \\\hline
+			15             & 1 & 1 & 1 & 1 & 0 \bigstrut \\\hlineB{2.5}
+		\end{tabular}%
+	}
+	\label{zad1-TableTrue}%
+\end{table}%
+\subsubsection{Siatka Karnaugh}
+\begin{figure}[H]
+	\centering
+	\resizebox{0.5\textwidth}{!}{
+		\begin{karnaugh-map}[4][4][1][$wx$][$yz$]
+		\minterms{2,4,5,10,11} % na tych koordynatach umieść jedynki (1)
+		\autoterms[0] % umieść ten symbol w miejscach niezdefiniowanych
+		\implicant{4}{5} % połącz te komórki
+		\implicant{11}{10}
+		\implicantedge{2}{2}{10}{10} %połącz komórki brzegowe
+		\end{karnaugh-map}
+	}
+	\caption{$ Wyj_G = w\overline{x}\overline{z} + \overline{w}\overline{y}z + wy\overline{z}$}
+	\end{figure}
 \subsubsection{Schemat układu}
 \subsubsection{Kod VHDL}
 \subsubsection{Symulacja}
@@ -115,6 +158,11 @@ keywordstyle=\color{ZeroBlue},
 
 \section{Zadanie 2}
 \subsection{Polecenie}
+Implementacja układu translatora kodu \textbf{4-bit kod NKB na 4-bit kod Aikena} w VHDL-u za pomocą:
+\begin{enumerate}
+	\item Zapis równań boolowskich
+	\item Metoda zapisu tablicowego
+\end{enumerate}
 \subsection{Rozwiązanie}
 \subsubsection{Schemat stanów}
 \subsubsection{Tabela prawdy}
@@ -127,6 +175,7 @@ keywordstyle=\color{ZeroBlue},
 
 \section{Zadanie 3}
 \subsection{Polecenie}
+Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, brak resetu, sekwencja prawidłowa 5-bitowa w VHDL-u jako maszyna stanów.
 \subsection{Rozwiązanie}
 \subsubsection{Schemat stanów}
 \subsubsection{Tabela prawdy}
@@ -139,6 +188,7 @@ keywordstyle=\color{ZeroBlue},
 
 \section{Zadanie 4}
 \subsection{Polecenie}
+Zaprojektować licznik synchroniczny liczący w tył na bazie kodu Aikena w zakresie 0-6 (mod 7) jako maszyna stanów.
 \subsection{Rozwiązanie}
 \subsubsection{Schemat stanów}
 \subsubsection{Tabela prawdy}
