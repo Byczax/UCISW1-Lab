@@ -9,7 +9,7 @@ end aiken_counter;
 architecture Behavioral of aiken_counter is
 
 	type state_type is (s6, s5, s4, s3, s2, s1, s0);
-	signal state : state_type:= s6;
+	signal state : state_type := s6;
 
 begin
 
@@ -26,7 +26,7 @@ begin
 				when s0 => state <= s6 after 5ns;
 			end case;
 		end if;
-	end processc;
+	end process processc;
 	
 	Q(3) <= '1' when state = s6 or state = s5 else '0';
 	Q(2) <= '1' when state = s6 or state = s4 else '0';
@@ -34,4 +34,3 @@ begin
 	Q(0) <= '1' when state = s5 or state = s3 or state = s1 else '0';
 	
 end Behavioral;
-
