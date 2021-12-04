@@ -14,7 +14,6 @@ ARCHITECTURE behavior OF aiken_counter_testbench IS
         );
     END COMPONENT;
     
-
    --Inputs
    signal CLK : std_logic := '0';
 
@@ -40,19 +39,4 @@ BEGIN
 		CLK <= '1';
 		wait for CLK_period/2;
    end process;
- 
-
-   -- Stimulus process
-   stim_proc: process
-   begin		
-      -- hold reset state for 100 ns.
-      wait for 100 ns;	
-
-      --wait for CLK_period*10;
-
-      -- insert stimulus here 
-
-      --wait;
-   end process;
-
 END;

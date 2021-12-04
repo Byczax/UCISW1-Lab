@@ -1,0 +1,8 @@
+# Clocks
+NET "CLK" LOC = "P7" | BUFG = CLK | PERIOD = 5ms HIGH 50%;
+
+# LEDS
+NET "Q(0)"  LOC = "P35";
+NET "Q(1)"  LOC = "P29";
+NET "Q(2)"  LOC = "P33";
+NET "Q(3)"  LOC = "P34";
