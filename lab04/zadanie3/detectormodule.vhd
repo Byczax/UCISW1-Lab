@@ -10,7 +10,8 @@ end detectormodule;
 architecture Behavioral of detectormodule is
 
 type state_type is (Q0, Q1, Q2, Q3, Q4, Q5);
-signal state, next_state : state_type;
+signal state: state_type := Q0;
+signal next_state : state_type := Q0;
 
 begin
 	process1 : process(CLK)
