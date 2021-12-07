@@ -1,19 +1,22 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
-ENTITY detectorTestBench IS
-END detectorTestBench;
+ENTITY detector_led_testbench IS
+END detector_led_testbench;
  
-ARCHITECTURE behavior OF detectorTestBench IS 
+ARCHITECTURE behavior OF detector_led_testbench IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
-    COMPONENT detectormodule
+ 
+    COMPONENT detector_led
     PORT(
          Z : IN  std_logic;
-         CLK : IN  std_logic;
-         Y : OUT  std_logic
+         Y : OUT  std_logic;
+         LED : OUT  std_logic_vector(7 downto 0);
+         CLK : IN  std_logic
         );
     END COMPONENT;
+    
 
    --Inputs
    signal Z : std_logic := '0';
@@ -21,6 +24,7 @@ ARCHITECTURE behavior OF detectorTestBench IS
 
  	--Outputs
    signal Y : std_logic;
+   signal LED : std_logic_vector(7 downto 0);
 
    -- Clock period definitions
    constant CLK_period : time := 100 ns;
@@ -28,10 +32,11 @@ ARCHITECTURE behavior OF detectorTestBench IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: detectormodule PORT MAP (
+   uut: detector_led PORT MAP (
           Z => Z,
-          CLK => CLK,
-          Y => Y
+          Y => Y,
+          LED => LED,
+          CLK => CLK
         );
 
    -- Clock process definitions
@@ -44,11 +49,12 @@ BEGIN
    end process;
  
 
+
    -- Stimulus process
    stim_proc: process
    begin		
 		-- initial : '0'
-      	wait for 125 ns;	
+      wait for 125 ns;	
 		
 		Z <= '1'; 
 		wait for 100 ns;
@@ -91,3 +97,4 @@ BEGIN
    end process;
 
 END;
+
