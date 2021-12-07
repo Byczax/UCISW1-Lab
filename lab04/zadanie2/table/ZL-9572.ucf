@@ -5,7 +5,7 @@ NET "WEJ(2)" LOC = "P43";
 NET "WEJ(3)" LOC = "P38";
 
 # LEDS
-NET "A"  LOC = "P35";
-NET "B"  LOC = "P29";
-NET "C"  LOC = "P33";
-NET "D"  LOC = "P34";
+NET "D"  LOC = "P35";
+NET "C"  LOC = "P29";
+NET "B"  LOC = "P33";
+NET "A"  LOC = "P34";
