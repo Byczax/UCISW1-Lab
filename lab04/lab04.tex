@@ -366,6 +366,20 @@ Detektor sekwencji 11011, automat Mealy-ego, jedno wejście, jedno wyjście, bra
 \end{figure}
 \subsubsection{Fizyczna implementacja (Kod UCF)}
 \lstinputlisting{zadanie3/ZL-9572.ucf}
+\subsection{Implementacja wyświetlacza LED}
+\subsubsection{Kod VHDL}
+\lstinputlisting{zadanie3/display_led/detector_led.vhd}
+\subsubsection{Kod VHDL TestBench}
+\lstinputlisting{zadanie3/display_led/detector_led_testbench.vhd}
+\subsubsection{Symulacja}
+\begin{figure}[H]
+   \centering
+   \resizebox*{\textwidth}{!}{
+	  \includegraphics{zadanie3/display_led/detector_led_simulation.png}
+   }
+\end{figure}
+\subsubsection{Fizyczna implementacja (Kod UCF)}
+\lstinputlisting{zadanie3/display_led/ZL-9572.ucf}
 \section{Zadanie 4}
 \subsection{Polecenie}
 Zaprojektować licznik synchroniczny liczący w tył na bazie kodu Aikena w zakresie 0-6 (mod 7) jako maszyna stanów.
@@ -412,6 +426,16 @@ Zaprojektować licznik synchroniczny liczący w tył na bazie kodu Aikena w zakr
 
 \section{Wnioski}
 
-Na początku trudność sprawiło nam testowanie modułów w języku VHDL. Problem rozwiązał się sam, w momencie, gdy natknięcia się na materiał instruktażowy, w którym pokazane zostało, że przy testowaniu modułu, plik testowy vhd należy wygenerować na podstawie napisanego modułu (sam moduł nie stanowi pliku testowego).
+Na początku trudność sprawiło nam testowanie modułów w języku VHDL. 
+Problem rozwiązał się sam, w momencie, gdy natknięcia się na materiał instruktażowy, 
+w którym pokazane zostało, że przy testowaniu modułu, plik testowy vhd należy wygenerować 
+na podstawie napisanego modułu (sam moduł nie stanowi pliku testowego).
+
+Zadanie 3 wymagało od nas podłączenia wyświetlacza LED, mieliśmy dostępny już gotowy moduł lecz wymagał
+on od nas narysowania schematu co jest bardzo żmudne.
+Obeszliśmy to poprzez własną implementację wyjść aby wyświetlić odpowiednie cyfry na wyświetlaczu.
+
+Wszystkie zadania zostały wykonane bardzo sprawnie i bez większych problemów, tworzenie układów w kodzie VHDL jest znacznie przyjemniejsze niż rysowanie
+schematów ponieważ jest szybsze i łatwiejsze w szukaniu błędów gdyż edytor sam nam powie, z którą linijką jest nie tak.
 
 \end{document}
