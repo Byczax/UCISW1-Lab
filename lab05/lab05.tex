@@ -101,53 +101,82 @@ keywordstyle=\color{ZeroBlue},
 %----------------------------------------------------------------------------------------------------
 \tableofcontents
 \cleardoublepage
-\section{Zadanie 1}
-\subsection{Polecenie}
-\subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
-\subsubsection{Tabela prawdy}
-\subsubsection{Siatki Karnaugh}
-\subsubsection{Schemat układu}
-\subsubsection{Kod VHDL}
-\subsubsection{Symulacja}
-\subsection{Fizyczna implementacja}
-\subsubsection{Kod UCF}
 
-\section{Zadanie 2}
-\subsection{Polecenie}
-\subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
-\subsubsection{Tabela prawdy}
-\subsubsection{Siatki Karnaugh}
-\subsubsection{Schemat układu}
-\subsubsection{Kod VHDL}
-\subsubsection{Symulacja}
-\subsection{Fizyczna implementacja}
-\subsubsection{Kod UCF}
+\section{Polecenie}
 
-\section{Zadanie 3}
-\subsection{Polecenie}
-\subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
-\subsubsection{Tabela prawdy}
-\subsubsection{Siatki Karnaugh}
-\subsubsection{Schemat układu}
-\subsubsection{Kod VHDL}
-\subsubsection{Symulacja}
-\subsection{Fizyczna implementacja}
-\subsubsection{Kod UCF}
+Licznik synchroniczny rewersyjny 8-bitowy pracujący w kodzie naturalnym binarnym.
+Wartość inicjująca licznik ma być ładowana z klawiatury komputera PC poprzez
+uruchomiony na nim terminal.
 
-\section{Zadanie 4}
-\subsection{Polecenie}
-\subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
-\subsubsection{Tabela prawdy}
-\subsubsection{Siatki Karnaugh}
-\subsubsection{Schemat układu}
-\subsubsection{Kod VHDL}
-\subsubsection{Symulacja}
-\subsection{Fizyczna implementacja}
-\subsubsection{Kod UCF}
+Oznacza to, że do przystawki dotrze kod ASCII naciśniętego klawisza poprzez port
+szeregowy RS232 i ten właśnie kod ma inicjować licznik.
+Licznik po przyjęciu kodu zaczyna liczyć - grupa wybiera czy będzie zwiększał swój
+stan - będzie początkowo - pozytywny, czy też zmniejszał swój stan - będzie
+początkowo - negatywny.
+
+Bieżący stan licznika ma być wyświetlany w postaci 2-cyfrowej liczby szesnastkowej
+na wyświetlaczu 7-segmentowym. W dowolnym momencie pracy licznika możemy
+zmieniać kierunek zliczania wybranym guzikiem z przystawki. Może to być jeden guzik
+- przełącznik góra/dół, mogą być użyte dwa guziki - jeden włącza zliczanie w górę,
+drugi - zliczanie w dół.
+
+Realizacja zadania wymaga zatem napisania w VHDL-u własnego modułu, który będzie
+realizował działanie licznika oraz spięcie tego modułu z gotowymi modułami obsługi
+urządzeń wejścia/wyjścia przystawki: odbiornika portu RS232 oraz obsługi
+wyświetlacza 7-segmentowego w wersji wielocyfrowej.
+\section{Rozwiązanie}
+Aby wykonać w pełni działający licznik wiemy że potrzebujemy następujące wejścia/wyjścia:
+\begin{itemize}
+	\item Wejście na parametry podane z klawiatury
+	\item Zegar na podstawie którego wywołamy kolejny stan
+	\item Reset za pomocą którego będziemy informować licznik że chcemy wprowadzić nową wartość
+	\item Kontrolę w jaki sposób licznik będzie liczyć (do przodu/do tyłu)
+\end{itemize}
+Licznik bazuje na 8 bitach więc w momencie przepełnienia ustawiliśmy że licznik wraca do wartości:
+\begin{itemize}
+	\item Zerowej gdy liczy do przodu
+	\item Maksymalnej gdy liczy do tyłu
+\end{itemize}
+Wykonaliśmy to w "sprytny" sposób wiedząc że możemy ikrementować bądź dekrementować wartość bitową więc nie potrzebujemy żadnych dodatkowych zmiennych.
+\subsection{Kod VHDL}
+\lstinputlisting{zadanie1/counter_mod.vhd}
+\subsection{Kod VHDL TestBench}
+\lstinputlisting{zadanie1/counter_mod_benchmark.vhd}
+
+\subsection{Symulacja}
+\begin{figure}[H]
+   \centering
+   \caption{Początek symulacji}
+   \resizebox*{\textwidth}{!}{
+	  \includegraphics{zadanie1/simulation_run_1.png}
+   }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\caption{Wprowadzenie nowej wartości}
+	\resizebox*{\textwidth}{!}{
+	   \includegraphics{zadanie1/simulation_run_2.png}
+	}
+ \end{figure}
+ \begin{figure}[H]
+	\centering
+	\caption{Odwrócenie kolejności odliczania}
+	\resizebox*{\textwidth}{!}{
+	   \includegraphics{zadanie1/simulation_run_3.png}
+	}
+ \end{figure}
+ \subsection{Schemat układu z wykorzystaniem zaprojektowanego modułu}
+ \begin{figure}[H]
+	 \centering
+	 \caption{Schemat z podłączoną klawiaturą oraz wyświetlaczem LED}
+	 \resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie1/scheme.png}
+	 }
+  \end{figure}
+\section{Fizyczna implementacja}
+\subsection{Kod UCF}
+\lstinputlisting{zadanie1/ZL-9572.ucf}
+
 
 \section{Wnioski}
 
