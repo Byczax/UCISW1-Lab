@@ -181,5 +181,11 @@ Wykonaliśmy to w "sprytny" sposób wiedząc że możemy ikrementować bądź de
 \section{Wnioski}
 
 %wniosek dotyczacy miejsca umieszczenia w kodzie instrukcji przypisania: prawidłowe umieszczenie to jako osobna instrukcja współbieżna (ewentualnie ostatnia instrukcja w warunku *******_edge), a nie jako ostatnia instrukcja w procesie
+%Wniosek dotyczący konieczności podziału częstlotliwości
+
+W trakcie wykonywania tak zaawansowanego zadania laboratoryjnego, jakim okazał się opisywany tutaj licznik synchroniczny, napotkaliśmy na szereg pomniejszych wyzwań, z którymi przyszło nam się zmierzyć; jednym z nich okazało się umiejscowienie jednej w instrukcji przypisania w kodzie VHDL tworzonego modułu. Początkowo umieściliśmy przypisanie do wejścia w zakresie procesu; powodowało to, początkowo dla nas niezrozumiałe, opóźnienie przypisania tego sygnału o pół okresu naszego licznika. Po wnikliwej analizie udało nam się jednak sprostować popełnioną gafę, i umieścić owe przypisanie jako niezależną instrukcję współbieżną. Przykład ten pozwolił nam na utrwalenie wiedzy wyniesionej z wykładu.
+
+Kolejnym wyzwaniem, z jakim przyszło nam się zmierzyć w trakcie laboratoriów, była konieczność podziału częstotliwości 240Hz zegara \textbf{CLK\_LF}. Była ona podyktowana tym, że dwa z modułów użytych w projekcie (Display4x7S oraz nasz własny) używały różnych ustawień tego samego zegara. % historia o skończeniu się pamięci, pozostawiam Tobie, Maciej
+Finalnie, problem zdecydowaliśmy się rozwiązać poprzez wprowadzenie w kodzie naszego układu dodatkowego stanu, który zliczałby cykle zegara wejściowego. Każdy bit dodatkowego stanu umożliwił spowolnienie układu licznika 2 razy; dla podanej częstotliwości zegara uznaliśmy zatem rozmiar 8-bitów za odpowiedni.
 
 \end{document}

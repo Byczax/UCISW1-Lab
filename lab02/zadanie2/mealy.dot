@@ -1,5 +1,5 @@
 digraph{
-//    layout = circo;
+   // layout = fdp;
    rankdir = LR;
    node [shape=circle];
 //    edge [labeldistance=6 labelangle=50]
