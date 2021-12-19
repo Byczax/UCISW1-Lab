@@ -71,9 +71,9 @@ keywordstyle=\color{ZeroBlue},
 %----------------------------------------------------------------------
 
 %-----------------------SEKCJA DANYCH----------------------------------
-\def\tytul{} %<<< tytuł ćwiczenia
-\def\nrcw{} %<<< numer ćwiczenia
-\def\data{} %<< data wykonania
+\def\tytul{Licznik synchroniczny sterowany} %<<< tytuł ćwiczenia
+\def\nrcw{6} %<<< numer ćwiczenia
+\def\data{15 Grudnia 2021r.} %<< data wykonania
 \def\prowadzacy{dr inż. Jacek Mazurkiewicz} %<<<prowadzący
 \def\nrgrupy{B} %<<<numer grupy
 \def\tworcy{Maciej Byczko\\Bartosz Matysiak} %<<< autorzy
@@ -138,8 +138,9 @@ Licznik bazuje na 8 bitach więc w momencie przepełnienia ustawiliśmy że licz
 	\item Maksymalnej gdy liczy do tyłu
 \end{itemize}
 Wykonaliśmy to w "sprytny" sposób wiedząc że możemy ikrementować bądź dekrementować wartość bitową więc nie potrzebujemy żadnych dodatkowych zmiennych.
+Za pomocą zmiennej splitter wykonaliśmy dzielnik częstotliwości aby wartość wyświetlana na ekranie była czytelna dla użytkownika
 \subsection{Kod VHDL}
-\lstinputlisting{zadanie1/counter_mod.vhd}
+\lstinputlisting{zadanie1/counter_mod_2.vhd}
 \subsection{Kod VHDL TestBench}
 \lstinputlisting{zadanie1/counter_mod_benchmark.vhd}
 
@@ -187,5 +188,7 @@ W trakcie wykonywania tak zaawansowanego zadania laboratoryjnego, jakim okazał 
 
 Kolejnym wyzwaniem, z jakim przyszło nam się zmierzyć w trakcie laboratoriów, była konieczność podziału częstotliwości 240Hz zegara \textbf{CLK\_LF}. Była ona podyktowana tym, że dwa z modułów użytych w projekcie (Display4x7S oraz nasz własny) używały różnych ustawień tego samego zegara. % historia o skończeniu się pamięci, pozostawiam Tobie, Maciej
 Finalnie, problem zdecydowaliśmy się rozwiązać poprzez wprowadzenie w kodzie naszego układu dodatkowego stanu, który zliczałby cykle zegara wejściowego. Każdy bit dodatkowego stanu umożliwił spowolnienie układu licznika 2 razy; dla podanej częstotliwości zegara uznaliśmy zatem rozmiar 8-bitów za odpowiedni.
+
+Wykonaliśmy to wewnątrz kodu VHDL ponieważ gdy próbowaliśmy wykonać to za pomocą przerzutników typu T to natrafiliśmy na błąd braku pamięci czyli brak możliwości dokładania dodatkowych elementów do schematu.
 
 \end{document}
