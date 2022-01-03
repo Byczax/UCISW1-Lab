@@ -71,9 +71,9 @@ keywordstyle=\color{ZeroBlue},
 %----------------------------------------------------------------------
 
 %-----------------------SEKCJA DANYCH----------------------------------
-\def\tytul{} %<<< tytuł ćwiczenia
-\def\nrcw{} %<<< numer ćwiczenia
-\def\data{} %<< data wykonania
+\def\tytul{Licznik synchroniczny sterowany - FPGA} %<<< tytuł ćwiczenia
+\def\nrcw{7} %<<< numer ćwiczenia
+\def\data{10 Stycznia 2022r.} %<< data wykonania
 \def\prowadzacy{dr inż. Jacek Mazurkiewicz} %<<<prowadzący
 \def\nrgrupy{B} %<<<numer grupy
 \def\tworcy{Maciej Byczko\\Bartosz Matysiak} %<<< autorzy
@@ -101,53 +101,82 @@ keywordstyle=\color{ZeroBlue},
 %----------------------------------------------------------------------------------------------------
 \tableofcontents
 \cleardoublepage
-\section{Zadanie 1}
-\subsection{Polecenie}
-\subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
-\subsubsection{Tabela prawdy}
-\subsubsection{Siatki Karnaugh}
-\subsubsection{Schemat układu}
-\subsubsection{Kod VHDL}
-\subsubsection{Symulacja}
-\subsection{Fizyczna implementacja}
-\subsubsection{Kod UCF}
+% \section{Zadanie 1}
+\section{Polecenie}
+Licznik synchroniczny rewersyjny 8-bitowy pracujący w kodzie naturalnym binarnym. Wartość inicjująca licznik ma być ładowana z klawiatury komputera PC poprzez uruchomiony na nim terminal. Można także użyć klawiatury PS/2 - uwaga na inne wartości podawane przez klawiaturę - kody skaningowe - oraz inny moduł wejściowy do obsługi portu PS/2.
 
-\section{Zadanie 2}
-\subsection{Polecenie}
-\subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
-\subsubsection{Tabela prawdy}
-\subsubsection{Siatki Karnaugh}
-\subsubsection{Schemat układu}
-\subsubsection{Kod VHDL}
-\subsubsection{Symulacja}
-\subsection{Fizyczna implementacja}
-\subsubsection{Kod UCF}
+Oznacza to, że do przystawki dotrze kod naciśniętego klawisza poprzez port szeregowy RS232 lub port PS/2 i ten właśnie kod ma inicjować licznik. Licznik po przyjęciu kodu zaczyna liczyć - grupa wybiera czy będzie zwiększał swój stan - będzie początkowo - pozytywny, czy też zmniejszał swój stan - będzie początkowo - negatywny.
 
-\section{Zadanie 3}
-\subsection{Polecenie}
-\subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
-\subsubsection{Tabela prawdy}
-\subsubsection{Siatki Karnaugh}
-\subsubsection{Schemat układu}
-\subsubsection{Kod VHDL}
-\subsubsection{Symulacja}
-\subsection{Fizyczna implementacja}
-\subsubsection{Kod UCF}
+Bieżący stan licznika ma być wyświetlany na wyświetlaczu LCD w dowolnej, ale jednoznacznej i komunikatywnej formie. W dowolnym momencie pracy licznika możemy zmieniać kierunek zliczania wybranym guzikiem z przystawki. Może to być jeden guzik - przełącznik góra/dół, mogą być użyte dwa guziki - jeden włącza zliczanie w górę, drugi - zliczanie w dół.
 
-\section{Zadanie 4}
-\subsection{Polecenie}
-\subsection{Rozwiązanie}
-\subsubsection{Schemat stanów}
-\subsubsection{Tabela prawdy}
-\subsubsection{Siatki Karnaugh}
-\subsubsection{Schemat układu}
-\subsubsection{Kod VHDL}
-\subsubsection{Symulacja}
-\subsection{Fizyczna implementacja}
-\subsubsection{Kod UCF}
+Realizacja zadania wymaga zatem napisania w VHDL-u własnego modułu, który będzie realizował działanie licznika oraz spięcie tego modułu z gotowymi modułami obsługi urządzeń wejścia/wyjścia przystawki: odbiornika portu RS232 lub portu PS/2 oraz obsługi wyświetlacza LCD stanowiącego integralną część przystawki Spartan FPGA. 
+\section{Rozwiązanie}
+Projekt licznika się nie zmienia względem poprzednich zajęć, więc dla przypomnienia:
+
+aby wykonać w pełni działający licznik wiemy że potrzebujemy następujące wejścia/wyjścia:
+\begin{itemize}
+	\item Wejście na parametry podane z klawiatury
+	\item Zegar na podstawie którego wywołamy kolejny stan
+	\item Reset za pomocą którego będziemy informować licznik że chcemy wprowadzić nową wartość
+	\item Kontrolę w jaki sposób licznik będzie liczyć (do przodu/do tyłu)
+\end{itemize}
+Licznik bazuje na 8 bitach więc w momencie przepełnienia ustawiliśmy że licznik wraca do wartości:
+\begin{itemize}
+	\item Zerowej gdy liczy do przodu
+	\item Maksymalnej gdy liczy do tyłu
+\end{itemize}
+Jedyna różnica w kodzie jest taka, że Spartan posiada zegar ze znacznie większą częstotliwością, więc na podstawie wykonania działania:
+
+$$1Mhz = 10^6 Hz \rightarrow 50Mhz = 5*10^7Hz$$
+
+$$\log_2(5*10^7Hz)\approx25.57$$
+
+$$\frac{5*10^7Hz}{2^25}\approx1.49Hz$$
+
+Dzięki tym obliczeniom wiemy, że musimy zastosować 25 bitowy dzielnik aby uzyskać częstotliwość w przybliżeniu $1Hz$.
+\subsection{Kod VHDL}
+\lstinputlisting{zadanie1/mainModule.vhd}
+% \subsection{Kod VHDL TestBench}
+% \lstinputlisting{zadanie1/counter_mod_benchmark.vhd}
+
+\subsection{Symulacja}
+\begin{figure}[H]
+   \centering
+   \caption{Początek symulacji}
+   \resizebox*{\textwidth}{!}{
+	  \includegraphics{zadanie1/simulation_run_1.png}
+   }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\caption{Wprowadzenie nowej wartości}
+	\resizebox*{\textwidth}{!}{
+	   \includegraphics{zadanie1/simulation_run_2.png}
+	}
+ \end{figure}
+ \begin{figure}[H]
+	\centering
+	\caption{Odwrócenie kolejności odliczania}
+	\resizebox*{\textwidth}{!}{
+	   \includegraphics{zadanie1/simulation_run_3.png}
+	}
+ \end{figure}
+ \subsection{Schemat układu z wykorzystaniem zaprojektowanego modułu}
+ \begin{figure}[H]
+	 \centering
+	 \caption{Schemat z podłączoną klawiaturą oraz wyświetlaczem LED}
+	 \resizebox*{\textwidth}{!}{
+		\includegraphics{zadanie1/scheme.png}
+	 }
+  \end{figure}
+\section{Fizyczna implementacja}
+\subsection{Kod UCF}
+Normalnie Kod byłby w dwóch plikach:
+GenIO.ucf oraz LDC.ucf lecz w celu poprawienia czytelności kody zostały umieszczone w jednym bloku 
+\lstinputlisting{zadanie1/Combined.ucf}
 
 \section{Wnioski}
+Niestety przez zajęcia zdalne nie mieliśmy możliwości przetestowania zaprojektowanego układu.
+
+
 \end{document}
