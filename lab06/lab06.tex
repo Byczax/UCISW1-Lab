@@ -131,13 +131,13 @@ $$1Mhz = 10^6 Hz \rightarrow 50Mhz = 5*10^7Hz$$
 
 $$\log_2(5*10^7Hz)\approx25.57$$
 
-$$\frac{5*10^7Hz}{2^25}\approx1.49Hz$$
+$$\frac{5*10^7Hz}{2^{25}}\approx1.49Hz$$
 
 Dzięki tym obliczeniom wiemy, że musimy zastosować 25 bitowy dzielnik aby uzyskać częstotliwość w przybliżeniu $1Hz$.
 \subsection{Kod VHDL}
 \lstinputlisting{zadanie1/mainModule.vhd}
-% \subsection{Kod VHDL TestBench}
-% \lstinputlisting{zadanie1/counter_mod_benchmark.vhd}
+\subsection{Kod VHDL TestBench}
+\lstinputlisting{zadanie1/counter_testbench.vhd}
 
 \subsection{Symulacja}
 \begin{figure}[H]
