@@ -26,7 +26,7 @@ begin
 			current_state <= WEJ;
 		elsif rising_edge(CLK_LF) then
 			splitter <= splitter + 1;
-			if splitter = "100000000000000000000000" then
+			if splitter = "1000000000000000000000000" then
 				splitter <= "0000000000000000000000000";
 				if REVERSE = '0' then
 					if current_state = "11111111" then
