@@ -1,0 +1,7 @@
+# soldered 50MHz Clock.
+NET "CLK" LOC = "C9" | IOSTANDARD = LVTTL;
+NET "CLK" PERIOD = 20.0ns HIGH 50%;
+
+# RS-232 Serial Port: DCE
+NET "RS232_RXD" LOC = "R7" | IOSTANDARD = LVTTL ;
+
